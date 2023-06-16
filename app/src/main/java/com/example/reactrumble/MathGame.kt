@@ -5,6 +5,10 @@ import android.os.CountDownTimer
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 class MathGame : AppCompatActivity() {
@@ -25,16 +29,28 @@ class MathGame : AppCompatActivity() {
     // Starts a countdown before the math equations start popping up
     private fun startCountdown() {
 
-        var countdownText : TextView = findViewById(R.id.countdownText)
+        var countdownTextP1 : TextView = findViewById(R.id.countdownTextP1)
+        var countdownTextP2 : TextView = findViewById(R.id.countdownTextP2)
+
         equationTimer = object : CountDownTimer(4000, 1000) {
+
             override fun onTick(millisUntilFinished: Long) {
                 val count = millisUntilFinished / 1000
-                countdownText.text = count.toString()
+                countdownTextP1.text = count.toString()
+                countdownTextP2.text = count.toString()
             }
 
             override fun onFinish() {
 
-                countdownText.text = "Go!"
+                countdownTextP1.text = "Go!"
+                countdownTextP2.text = "Go!"
+
+                // The "Go!" vanishes after 1 second of appearing
+                GlobalScope.launch(Dispatchers.Main) {
+                    delay(1000)
+                    countdownTextP1.text = ""
+                    countdownTextP2.text = ""
+                }
                 startEquationGeneration()
             }
         }
@@ -59,7 +75,9 @@ class MathGame : AppCompatActivity() {
     // Generates correct and incorrect simple mathematical equations
     private fun generateEquation() {
 
-        var equationText : TextView = findViewById(R.id.equationText)
+        var equationTextP1 : TextView = findViewById(R.id.equationTextP1)
+        var equationTextP2 : TextView = findViewById(R.id.equationTextP2)
+
         val number1 = Random.nextInt(10)
         val number2 = Random.nextInt(10)
         val operator = if (Random.nextBoolean()) "+" else "-"
@@ -79,8 +97,11 @@ class MathGame : AppCompatActivity() {
             incorrectResult
         }
 
-        equationText.text = "$number1 $operator $number2 = $result"
-        equationText.setOnClickListener {
+        // Set the equations to player 1 and player 2 TextViews
+        equationTextP1.text = "$number1 $operator $number2 = $result"
+        equationTextP2.text = "$number1 $operator $number2 = $result"
+
+        equationTextP1.setOnClickListener {
             if ((isCorrectEquation && result == correctResult) || (!isCorrectEquation && result != correctResult)) {
 
                 score++
@@ -93,10 +114,11 @@ class MathGame : AppCompatActivity() {
         }
     }
 
+    // What happens when player 1 presses their equation
     private fun setupEquationClickListener() {
 
-        var equationText : TextView = findViewById(R.id.equationText)
-        equationText.setOnClickListener {
+        var equationTextP1 : TextView = findViewById(R.id.equationTextP1)
+        equationTextP1.setOnClickListener {
             // Handle user tap when no equation is shown
             Toast.makeText(applicationContext, "You are Correct!", Toast.LENGTH_SHORT).show()
         }
