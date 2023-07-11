@@ -23,6 +23,7 @@ class MathGame : AppCompatActivity() {
         setContentView(R.layout.math_minigame)
 
         startGame()
+
         setupEquationClickListener() // Placeholder tester method
     }
 

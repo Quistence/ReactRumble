@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.477" />
 
     <TextView
-        android:id="@+id/equationTextP1"
+        android:id="@+id/colorTextP1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
@@ -49,7 +49,7 @@
         app:layout_constraintVertical_bias="0.424" />
 
     <TextView
-        android:id="@+id/equationTextP2"
+        android:id="@+id/colorTextP2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:rotation="180"
@@ -62,4 +62,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.366" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
