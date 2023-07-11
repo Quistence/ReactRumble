@@ -13,7 +13,7 @@ import kotlin.random.Random
 
 class MathGame : AppCompatActivity() {
 
-    // Initializing required variables for the mini game
+    // Initializing placeholder score variable for testing and equationTimer for the mini game
     private var score = 0
     private lateinit var equationTimer: CountDownTimer
 
@@ -22,8 +22,27 @@ class MathGame : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.math_minigame)
 
-        startCountdown()
-        setupEquationClickListener()
+        startGame()
+        setupEquationClickListener() // Placeholder tester method
+    }
+
+    // This method is run to start the game, it displays the game instructions and then runs the
+    // startCountdown() which in turn runs the startEquationGeneration() method
+    private fun startGame() {
+
+        var countdownTextP1 : TextView = findViewById(R.id.countdownTextP1)
+        var countdownTextP2 : TextView = findViewById(R.id.countdownTextP2)
+
+        countdownTextP1.text = "Tap correct equations!"
+        countdownTextP2.text = "Tap correct equations!"
+
+        GlobalScope.launch(Dispatchers.Main) {
+            delay(3000) // Display the game instructions for 3 seconds
+            countdownTextP1.text = "3"
+            countdownTextP2.text = "3"
+
+            startCountdown()
+        }
     }
 
     // Starts a countdown before the math equations start popping up
@@ -50,23 +69,27 @@ class MathGame : AppCompatActivity() {
                     delay(1000)
                     countdownTextP1.text = ""
                     countdownTextP2.text = ""
+
+                    // Start generating the equations
+                    startEquationGeneration()
                 }
-                startEquationGeneration()
             }
         }
+
         equationTimer.start()
     }
 
     // Generate equations on a set timer before ending the game
     private fun startEquationGeneration() {
 
+        // Adjust the time for the duration of the game down here
         equationTimer = object : CountDownTimer(100000, 1200) {
             override fun onTick(millisUntilFinished: Long) {
                 generateEquation()
             }
 
             override fun onFinish() {
-                // Game over logic
+                // Game over logic should be placed here
             }
         }
         equationTimer.start()
@@ -101,6 +124,7 @@ class MathGame : AppCompatActivity() {
         equationTextP1.text = "$number1 $operator $number2 = $result"
         equationTextP2.text = "$number1 $operator $number2 = $result"
 
+        // This is a placeholder click listener that checks whether the tapped equation is correct or not
         equationTextP1.setOnClickListener {
             if ((isCorrectEquation && result == correctResult) || (!isCorrectEquation && result != correctResult)) {
 
@@ -114,6 +138,7 @@ class MathGame : AppCompatActivity() {
         }
     }
 
+    // Placeholder tester method for scoring
     // What happens when player 1 presses their equation
     private fun setupEquationClickListener() {
 
