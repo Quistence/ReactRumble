@@ -10,11 +10,10 @@ class MainActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 		val activityArr = arrayOf(TestGameActivity1::class.java, TestGameActivity2::class.java)
-		GameManager.initialize(activityArr, 5)
 
 		val button: Button = findViewById(R.id.startButton)
 		button.setOnClickListener{
-			GameManager.startGame(this)
+			GameManager.startGame(this, activityArr, 5)
 		}
 	}
 

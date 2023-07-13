@@ -11,33 +11,22 @@ class GameManager private constructor(var list : Array<Class <out AppCompatActiv
 
     companion object {
 
-        var instance : GameManager? = null
-
-        var playerOneScore : Int
-        var playerTwoScore : Int
+        var playerOneScore : Int = 0
+        var playerTwoScore : Int = 0
         var maxScore: Int = 0
-        var gameStarted = false
+        var instance : GameManager? = null
         private lateinit var list : Array<Class <out AppCompatActivity>>
 
-        init {
-            playerOneScore = 0
-            playerTwoScore = 0
-        }
-
-        fun initialize(list: Array<Class<out AppCompatActivity>>, maxScore: Int) {
+        fun startGame(context: Context, list: Array<Class<out AppCompatActivity>>, maxScore: Int) {
             if(instance != null) {
                 return
             }
             instance = GameManager(list, maxScore)
             this.maxScore = maxScore
             this.list = list
-        }
-
-        fun startGame(context: Context) {
-            if(!gameStarted) {
-                nextGame(context)
-                gameStarted = true
-            }
+            this.playerOneScore = 0
+            this.playerTwoScore = 0
+            nextGame(context)
         }
 
         /**
@@ -63,8 +52,8 @@ class GameManager private constructor(var list : Array<Class <out AppCompatActiv
             intent.putExtra("p1", playerOneScore)
             intent.putExtra("p2", playerTwoScore)
             intent.putExtra("winner", p1Win)
-            context.startActivity(intent)
             instance = null
+            context.startActivity(intent)
         }
 
     }
