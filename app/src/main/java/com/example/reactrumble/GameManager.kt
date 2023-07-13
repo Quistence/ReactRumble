@@ -58,7 +58,11 @@ class GameManager private constructor(var list : Array<Class <out AppCompatActiv
          * If gameOver is called, we move to the gameOver screen.
          */
         fun gameOver(context: Context) {
+            val p1Win = playerOneScore > playerTwoScore
             val intent = Intent(context, GameOverActivity::class.java)
+            intent.putExtra("p1", playerOneScore)
+            intent.putExtra("p2", playerTwoScore)
+            intent.putExtra("winner", p1Win)
             context.startActivity(intent)
             instance = null
         }
