@@ -16,14 +16,16 @@
             android:name=".CustomizeActivity"
             android:exported="false" />
         <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".MathGame"
             android:exported="true"  />
         <activity
             android:name=".ColorsGame"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
->>>>>>> app/src/main/AndroidManifest.xml
+            android:name=".HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
