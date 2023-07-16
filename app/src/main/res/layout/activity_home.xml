@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="40sp"
+    tools:context=".HomeActivity">
+
+    <!-- Game Name -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/textview_customization"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/react_rumble_string"
+        android:textColor="#FFFFFF"
+        android:textSize="70sp" />
+
+    <!-- Button Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="40sp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- Quick Start Game Button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/quickStartButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background_green"
+            android:padding="16dp"
+            android:text="Quick Start Game"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <!-- Customize Game Button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/customizeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_background_green"
+            android:padding="16dp"
+            android:text="Customize Game"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <!-- Settings Button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/settingsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/button_background_blue"
+            android:padding="16dp"
+            android:text="Settings"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+</LinearLayout>
