@@ -10,15 +10,14 @@
     android:padding="30dp"
     tools:context=".CustomizeActivity">
 
-    <TextView
+    <!-- Game Icon -->
+    <ImageView
+        android:id="@+id/provinceImage"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/textview_customization"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="@string/react_rumble_string"
-        android:textColor="#FFFFFF"
-        android:textSize="70sp" />
+        android:layout_height="200dp"
+        android:src="@drawable/reactrumble_icon_transparent"
+        android:scaleType="fitXY"
+        android:contentDescription="Mumbai_Image" />
 
     <LinearLayout
         android:layout_width="wrap_content"
