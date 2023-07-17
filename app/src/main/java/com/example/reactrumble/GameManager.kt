@@ -1,27 +1,25 @@
 package com.example.reactrumble
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import kotlin.random.Random
 
-class GameManager private constructor(var list : Array<Class <out AppCompatActivity>>, var maxScore : Int) {
+class GameManager private constructor() {
 
     companion object {
 
-        var playerOneScore : Int = 0
-        var playerTwoScore : Int = 0
+        var playerOneScore: Int = 0
+        var playerTwoScore: Int = 0
         var maxScore: Int = 0
-        var instance : GameManager? = null
-        private lateinit var list : Array<Class <out AppCompatActivity>>
+        var instance: GameManager? = null
+        private lateinit var list: Array<Class<out AppCompatActivity>>
 
         fun startGame(context: Context, list: Array<Class<out AppCompatActivity>>, maxScore: Int) {
-            if(instance != null) {
+            if (instance != null) {
                 return
             }
-            instance = GameManager(list, maxScore)
+            instance = GameManager()
             this.maxScore = maxScore
             this.list = list
             this.playerOneScore = 0
