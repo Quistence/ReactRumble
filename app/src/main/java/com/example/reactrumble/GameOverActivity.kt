@@ -29,7 +29,7 @@ class GameOverActivity : AppCompatActivity() {
 
         val homeButton : Button = findViewById(R.id.homeButton)
         homeButton.setOnClickListener{
-            val i = Intent(this, MainActivity::class.java)
+            val i = Intent(this, HomeActivity::class.java)
             startActivity(i)
         }
     }
