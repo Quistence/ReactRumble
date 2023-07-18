@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_green"
             android:padding="16dp"
-            android:text="Quick Start Game"
+            android:text="Start Game"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
