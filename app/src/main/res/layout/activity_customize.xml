@@ -15,9 +15,9 @@
         android:id="@+id/provinceImage"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:src="@drawable/reactrumble_icon_transparent"
+        android:contentDescription="React Rumble Image"
         android:scaleType="fitXY"
-        android:contentDescription="Mumbai_Image" />
+        android:src="@drawable/reactrumble_icon_transparent" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
             android:scrollbarSize="30dp" />
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/themeSwitch"
+            android:id="@+id/randomizeSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -117,7 +117,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@drawable/button_background_green"
+            android:background="@drawable/background_green"
             android:text="Start Game" />
     </LinearLayout>
 
