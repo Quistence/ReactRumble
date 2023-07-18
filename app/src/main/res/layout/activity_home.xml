@@ -16,7 +16,7 @@
         android:layout_height="200dp"
         android:src="@drawable/reactrumble_icon_transparent"
         android:scaleType="fitXY"
-        android:contentDescription="Mumbai_Image" />
+        android:contentDescription="React Rumble Image" />
 
 
     <!-- Button Container -->
@@ -33,7 +33,7 @@
             android:id="@+id/quickStartButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_background_green"
+            android:background="@drawable/background_green"
             android:padding="16dp"
             android:text="Quick Start Game"
             android:textColor="@color/black"
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@drawable/button_background_green"
+            android:background="@drawable/background_green"
             android:padding="16dp"
             android:text="Customize Game"
             android:textColor="@color/black"
@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:background="@drawable/button_background_blue"
+            android:background="@drawable/background_blue"
             android:padding="16dp"
             android:text="Settings"
             android:textColor="@color/black"

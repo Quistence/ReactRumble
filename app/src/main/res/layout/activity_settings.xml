@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,17 +15,17 @@
         android:id="@+id/provinceImage"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:src="@drawable/reactrumble_icon_transparent"
+        android:contentDescription="React Rumble Image"
         android:scaleType="fitXY"
-        android:contentDescription="Mumbai_Image" />
+        android:src="@drawable/reactrumble_icon_transparent" />
 
     <!-- Button Container -->
     <LinearLayout
         android:layout_width="wrap_content"
-        android:gravity="center_horizontal"
         android:layout_height="0dp"
         android:layout_marginTop="40dp"
         android:layout_weight="1"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <!-- Settings Title -->
@@ -40,34 +41,37 @@
             android:id="@+id/languageTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Language"
             android:layout_marginTop="20dp"
+            android:text="Language"
             android:textSize="20sp" />
 
         <!-- Language Selection Dropdown -->
-        <Spinner
+        <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/languageSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:scrollbarSize="30dp"
-            />
+            android:scrollbarSize="30dp" />
 
         <!-- Theme Switch -->
-        <com.google.android.material.switchmaterial.SwitchMaterial
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/themeSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:text="@string/dark_mode_string"
             android:textSize="20sp"
-            android:text="@string/dark_mode_string" />
+            android:thumb="@drawable/switch_thumb"
+            app:switchPadding="10dp"
+            app:track="@drawable/switch_track"  />
 
         <!-- Check Stats Button -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/checkStatsButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:background="@drawable/background_green"
             android:text="@string/check_stats_string" />
     </LinearLayout>
 
