@@ -12,6 +12,7 @@ class GameManager private constructor() {
         var playerOneScore: Int = 0
         var playerTwoScore: Int = 0
         var maxScore: Int = 0
+        var lastGameIndex: Int = -1
         var instance: GameManager? = null
         private lateinit var list: Array<Class<out AppCompatActivity>>
 
@@ -34,8 +35,12 @@ class GameManager private constructor() {
             if (playerOneScore >= maxScore || playerTwoScore >= maxScore) {
                 gameOver(context)
             } else {
-                val index = Random.nextInt(list.size)
+                var index : Int
+                do {
+                    index = Random.nextInt(list.size)
+                } while(index == lastGameIndex && list.size > 1) //Ensures we don't get same game twice
                 val intent = Intent(context, list[index])
+                lastGameIndex = index
                 context.startActivity(intent)
             }
 
