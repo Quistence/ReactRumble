@@ -3,9 +3,7 @@ package com.example.reactrumble
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
@@ -16,7 +14,7 @@ import androidx.appcompat.widget.SwitchCompat
 class CustomizeActivity : AppCompatActivity() {
 	private val PREFS_FILENAME = "customizationsPreferences"
 	private lateinit var noOfRoundSpinner: AppCompatSpinner
-	private lateinit var randomizeSwitch: SwitchCompat
+	private lateinit var darkModeSwitch: SwitchCompat
 	private lateinit var maxPointsPerGameRadioButtonGroup: RadioGroup
 	private lateinit var btnSavePreferences: AppCompatButton
 	private lateinit var preferences: SharedPreferences
@@ -24,13 +22,15 @@ class CustomizeActivity : AppCompatActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_customize)
-
 		preferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
+		if(preferences.getBoolean("is_dark_mode", false))
+			setContentView(R.layout.dark_activity_customize)
+		else
+			setContentView(R.layout.activity_customize)
 		editor = preferences.edit()
 
 		noOfRoundSpinner = findViewById(R.id.noOfRoundSpinner)
-		randomizeSwitch = findViewById(R.id.randomizeSwitch)
+		darkModeSwitch = findViewById(R.id.darkModeSwitch)
 		maxPointsPerGameRadioButtonGroup = findViewById(R.id.maxPointsPerGameRadioButtonGroup)
 		btnSavePreferences = findViewById(R.id.btnSavePreferences)
 
@@ -47,8 +47,8 @@ class CustomizeActivity : AppCompatActivity() {
 			val selectedNoOfRounds = (noOfRoundSpinner.selectedItem as String).toInt()
 			editor.putInt("no_of_rounds", selectedNoOfRounds)
 
-			val isRandomized = randomizeSwitch.isChecked
-			editor.putBoolean("is_randomized", isRandomized)
+			val isDarkMode = darkModeSwitch.isChecked
+			editor.putBoolean("is_dark_mode", isDarkMode)
 
 			val selectedMaxPointsPerGame =
 				findViewById<RadioButton>(maxPointsPerGameRadioButtonGroup.checkedRadioButtonId)
@@ -59,11 +59,11 @@ class CustomizeActivity : AppCompatActivity() {
 			Toast.makeText(this@CustomizeActivity, "Customization Saved", Toast.LENGTH_SHORT).show()
 		}
 		val savedNoOfRounds = preferences.getInt("no_of_rounds", 1)
-		val savedRandomized = preferences.getBoolean("is_randomized", false)
+		val savedDarkMode = preferences.getBoolean("is_dark_mode", false)
 		val savedMaxPointsPerGame = preferences.getInt("max_points_per_game", 3)
 
 		noOfRoundSpinner.setSelection(getIndex(noOfRoundSpinner, savedNoOfRounds.toString()))
-		randomizeSwitch.isChecked = savedRandomized
+		darkModeSwitch.isChecked = savedDarkMode
 
 		// Set the appropriate RadioButton based on the savedMaxPointsPerGame value
 		val radioButton: RadioButton = when (savedMaxPointsPerGame) {
@@ -73,6 +73,7 @@ class CustomizeActivity : AppCompatActivity() {
 		}
 		radioButton.isChecked = true
 	}
+
 	private fun getIndex(spinner: AppCompatSpinner, value: String): Int {
 		val adapter = spinner.adapter
 		for (i in 0 until adapter.count) {

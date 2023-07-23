@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="40sp"
+    tools:context=".HomeActivity">
+
+    <!-- Game Icon -->
+    <ImageView
+        android:id="@+id/provinceImage"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:src="@drawable/reactrumble_icon_transparent"
+        android:scaleType="fitXY"
+        android:contentDescription="React Rumble Image" />
+
+
+    <!-- Button Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="40sp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- Quick Start Game Button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/quickStartButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_green"
+            android:padding="16dp"
+            android:text="Start Game"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <!-- Customize Game Button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/customizeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/background_green"
+            android:padding="16dp"
+            android:text="Customize Game"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <!-- Settings Button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/settingsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/background_blue"
+            android:padding="16dp"
+            android:text="Settings"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+</LinearLayout>

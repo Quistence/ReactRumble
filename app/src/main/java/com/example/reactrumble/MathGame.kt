@@ -1,6 +1,7 @@
 package com.example.reactrumble
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -15,6 +16,8 @@ import kotlin.random.Random
 
 @SuppressLint("ClickableViewAccessibility")
 class MathGame : AppCompatActivity() {
+    private val PREFS_FILENAME = "customizationsPreferences"
+    private lateinit var preferences: SharedPreferences
 
     private val gameInstructions = "Tap if equations are correct!"
 
@@ -37,8 +40,13 @@ class MathGame : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        preferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
+
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.math_minigame)
+        if(preferences.getBoolean("is_dark_mode", false))
+            setContentView(R.layout.dark_math_minigame)
+        else
+            setContentView(R.layout.math_minigame)
         startGame()
     }
 

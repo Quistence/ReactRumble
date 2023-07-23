@@ -1,15 +1,23 @@
 package com.example.reactrumble
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 
 class GameOverActivity : AppCompatActivity() {
+    private val PREFS_FILENAME = "customizationsPreferences"
+    private lateinit var preferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_game_over)
+        preferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
+
+        if(preferences.getBoolean("is_dark_mode", false))
+            setContentView(R.layout.dark_activity_game_over)
+        else
+            setContentView(R.layout.activity_game_over)
 
         val p1Score = intent.getIntExtra("p1", 0)
         val p2Score = intent.getIntExtra("p2", 0)
