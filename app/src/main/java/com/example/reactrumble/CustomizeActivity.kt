@@ -12,27 +12,21 @@ import androidx.appcompat.widget.AppCompatSpinner
 import androidx.appcompat.widget.SwitchCompat
 
 class CustomizeActivity : AppCompatActivity() {
-	private val PREFS_FILENAME = "customizationsPreferences"
 	private lateinit var noOfRoundSpinner: AppCompatSpinner
 	private lateinit var darkModeSwitch: SwitchCompat
 	private lateinit var maxPointsPerGameRadioButtonGroup: RadioGroup
 	private lateinit var btnSavePreferences: AppCompatButton
-	private lateinit var preferences: SharedPreferences
-	private lateinit var editor: SharedPreferences.Editor
-
+	private lateinit var gamePreferences: GamePreferences
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		preferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
-		if(preferences.getBoolean("is_dark_mode", false))
-			setContentView(R.layout.dark_activity_customize)
-		else
-			setContentView(R.layout.activity_customize)
-		editor = preferences.edit()
+		setContentView(R.layout.activity_customize)
+
 
 		noOfRoundSpinner = findViewById(R.id.noOfRoundSpinner)
 		darkModeSwitch = findViewById(R.id.darkModeSwitch)
 		maxPointsPerGameRadioButtonGroup = findViewById(R.id.maxPointsPerGameRadioButtonGroup)
 		btnSavePreferences = findViewById(R.id.btnSavePreferences)
+		gamePreferences = GamePreferences.getInstance(applicationContext)
 
 		ArrayAdapter.createFromResource(
 			this@CustomizeActivity,
@@ -45,25 +39,26 @@ class CustomizeActivity : AppCompatActivity() {
 
 		btnSavePreferences.setOnClickListener {
 			val selectedNoOfRounds = (noOfRoundSpinner.selectedItem as String).toInt()
-			editor.putInt("no_of_rounds", selectedNoOfRounds)
-
-			val isDarkMode = darkModeSwitch.isChecked
-			editor.putBoolean("is_dark_mode", isDarkMode)
+			gamePreferences.saveNoOFRounds(selectedNoOfRounds)
+			val isRandomized = randomizeSwitch.isChecked
+			gamePreferences.saveGameRandomization(isRandomized)
 
 			val selectedMaxPointsPerGame =
 				findViewById<RadioButton>(maxPointsPerGameRadioButtonGroup.checkedRadioButtonId)
 			val maxPointsPerGame = selectedMaxPointsPerGame.text.toString().toInt()
-			editor.putInt("max_points_per_game", maxPointsPerGame)
+			gamePreferences.saveMaxPoint(maxPointsPerGame)
 
-			editor.apply()
 			Toast.makeText(this@CustomizeActivity, "Customization Saved", Toast.LENGTH_SHORT).show()
 		}
-		val savedNoOfRounds = preferences.getInt("no_of_rounds", 1)
-		val savedDarkMode = preferences.getBoolean("is_dark_mode", false)
-		val savedMaxPointsPerGame = preferences.getInt("max_points_per_game", 3)
+		val savedNoOfRounds = gamePreferences.getNoOFRounds()
+		val savedRandomized = gamePreferences.getGameRandomization()
+		val savedMaxPointsPerGame = gamePreferences.getMaxPoint()
 
 		noOfRoundSpinner.setSelection(getIndex(noOfRoundSpinner, savedNoOfRounds.toString()))
-		darkModeSwitch.isChecked = savedDarkMode
+
+		if (savedRandomized != null) {
+			randomizeSwitch.isChecked = savedRandomized
+		}
 
 		// Set the appropriate RadioButton based on the savedMaxPointsPerGame value
 		val radioButton: RadioButton = when (savedMaxPointsPerGame) {
