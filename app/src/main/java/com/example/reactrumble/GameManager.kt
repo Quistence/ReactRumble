@@ -2,6 +2,7 @@ package com.example.reactrumble
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.random.Random
 
@@ -9,19 +10,22 @@ class GameManager private constructor() {
 
     companion object {
 
+        private lateinit var pref: SharedPreferences
         var playerOneScore: Int = 0
         var playerTwoScore: Int = 0
-        var maxScore: Int = 0
+        var maxScore: Int = 5
         var lastGameIndex: Int = -1
         var instance: GameManager? = null
         private lateinit var list: Array<Class<out AppCompatActivity>>
 
-        fun startGame(context: Context, list: Array<Class<out AppCompatActivity>>, maxScore: Int) {
+        fun startGame(context: Context, list: Array<Class<out AppCompatActivity>>) {
             if (instance != null) {
                 return
             }
             instance = GameManager()
-            this.maxScore = maxScore
+            pref = context.getSharedPreferences("customizationsPreferences",
+                AppCompatActivity.MODE_PRIVATE
+            )
             this.list = list
             this.playerOneScore = 0
             this.playerTwoScore = 0
