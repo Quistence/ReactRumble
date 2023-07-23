@@ -1,6 +1,5 @@
 package com.example.reactrumble
 
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -13,7 +12,7 @@ import androidx.appcompat.widget.SwitchCompat
 
 class CustomizeActivity : AppCompatActivity() {
 	private lateinit var noOfRoundSpinner: AppCompatSpinner
-	private lateinit var darkModeSwitch: SwitchCompat
+	private lateinit var randomizeSwitch: SwitchCompat
 	private lateinit var maxPointsPerGameRadioButtonGroup: RadioGroup
 	private lateinit var btnSavePreferences: AppCompatButton
 	private lateinit var gamePreferences: GamePreferences
@@ -23,7 +22,7 @@ class CustomizeActivity : AppCompatActivity() {
 
 
 		noOfRoundSpinner = findViewById(R.id.noOfRoundSpinner)
-		darkModeSwitch = findViewById(R.id.darkModeSwitch)
+		randomizeSwitch = findViewById(R.id.randomizeSwitch)
 		maxPointsPerGameRadioButtonGroup = findViewById(R.id.maxPointsPerGameRadioButtonGroup)
 		btnSavePreferences = findViewById(R.id.btnSavePreferences)
 		gamePreferences = GamePreferences.getInstance(applicationContext)

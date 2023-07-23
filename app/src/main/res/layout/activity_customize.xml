@@ -50,11 +50,11 @@
             android:scrollbarSize="30dp" />
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/darkModeSwitch"
+            android:id="@+id/randomizeSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Dark Mode"
+            android:text="Randomize Game"
             android:textSize="20sp"
             android:thumb="@drawable/switch_thumb"
             app:switchPadding="10dp"
