@@ -28,6 +28,9 @@
             android:name=".ColorsGame"
             android:exported="true" />
         <activity
+            android:name=".FlagsGame"
+            android:exported="true" />
+        <activity
             android:name=".HomeActivity"
             android:exported="true">
             <intent-filter>

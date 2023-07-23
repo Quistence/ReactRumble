@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:gravity="center"
+    android:background="@color/black"
     android:orientation="vertical"
     tools:context=".GameOverActivity">
 
@@ -13,6 +14,7 @@
         android:id="@+id/gameOverText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:text="Player x wins"
         android:textSize="50sp" />
 

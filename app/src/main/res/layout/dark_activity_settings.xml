@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="@color/black"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="30dp"
@@ -33,6 +33,7 @@
             android:id="@+id/settingsTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:text="Settings"
             android:textSize="30sp" />
 
@@ -41,6 +42,7 @@
             android:id="@+id/languageTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:layout_marginTop="20dp"
             android:text="Language"
             android:textSize="20sp" />
@@ -50,6 +52,7 @@
             android:id="@+id/languageSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:padding="15dp"
             android:scrollbarSize="30dp" />
 
@@ -60,6 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/dark_mode_string"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:thumb="@drawable/switch_thumb"
             app:switchPadding="10dp"
