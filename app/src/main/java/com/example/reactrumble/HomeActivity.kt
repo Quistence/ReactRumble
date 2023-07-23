@@ -47,9 +47,11 @@ class HomeActivity : AppCompatActivity() {
 		val settingsButton: Button = findViewById(R.id.settingsButton)
 		val customizeButton: Button = findViewById(R.id.customizeButton)
 		val startGame: Button = findViewById(R.id.quickStartButton)
+		val games = arrayOf(MathGame::class.java, FlagsGame::class.java)
 
 		startGame.setOnClickListener {
-			startActivity(Intent(this@HomeActivity, MathGame::class.java))
+			//startActivity(Intent(this@HomeActivity, MathGame::class.java))
+			GameManager.startGame(this, games)
 		}
 
 		settingsButton.setOnClickListener{
