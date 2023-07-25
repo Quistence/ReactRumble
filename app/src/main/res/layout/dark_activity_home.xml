@@ -12,10 +12,10 @@
     <!-- Game Icon -->
     <ImageView
         android:id="@+id/provinceImage"
-        android:layout_width="wrap_content"
+        android:layout_width="230dp"
         android:layout_height="200dp"
+        android:layout_marginTop="40dp"
         android:src="@drawable/reactrumble_icon_transparent"
-        android:scaleType="fitXY"
         android:contentDescription="React Rumble Image" />
 
 
