@@ -69,37 +69,11 @@ class ColorsGame : AppCompatActivity() {
         updateScoreText()
 
         GlobalScope.launch(Dispatchers.Main) {
-            delay(3000)
-            countdownTextP1.text = "3"
-            countdownTextP2.text = "3"
-            startInitialCountdown()
+            delay(DELAY_TIME)
+            countdownTextP1.text = ""
+            countdownTextP2.text = ""
+            startColorsGeneration()
         }
-    }
-
-    // Starts a countdown before the colors start popping up
-    private fun startInitialCountdown() {
-        val countdownTextP1: TextView = findViewById(R.id.countdownTextP1)
-        val countdownTextP2: TextView = findViewById(R.id.countdownTextP2)
-
-        colorTimer = object : CountDownTimer(4000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                val count = millisUntilFinished / 1000
-                if (count.toString() == "0") {
-                    countdownTextP1.text = "GO!"
-                    countdownTextP2.text = "GO!"
-                } else {
-                    countdownTextP1.text = count.toString()
-                    countdownTextP2.text = count.toString()
-                }
-            }
-
-            override fun onFinish() {
-                countdownTextP1.text = ""
-                countdownTextP2.text = ""
-                startColorsGeneration()
-            }
-        }
-        colorTimer.start()
     }
 
     // This method uses a bunch of helper methods to generate correct and incorrect (by chance) colors and displays
@@ -239,7 +213,7 @@ class ColorsGame : AppCompatActivity() {
     }
 
     private fun checkGameOver(player1Zone: LinearLayout, player2Zone: LinearLayout) {
-        if (++tapCount >= MAX_GAME_TAPS || GameManager.playerOneScore >= GameManager.maxPointsPerMatch || GameManager.playerTwoScore >= GameManager.maxPointsPerMatch) {
+        if (++tapCount >= MAX_GAME_TAPS) {
             player1Zone.isClickable = false
             player2Zone.isClickable = false
             //Delay for players to check results of last round

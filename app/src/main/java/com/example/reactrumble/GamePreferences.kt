@@ -34,12 +34,12 @@ class GamePreferences private constructor(context: Context){
 		return sharedPreferences?.getInt("no_of_rounds", 3)
 	}
 
-	fun saveMaxPoint(value: Int) {
-		sharedPreferences?.edit()?.putInt("max_points_per_game", value)?.apply()
+	fun saveMaxMiniGamesPerMatch(value: Int) {
+		sharedPreferences?.edit()?.putInt("max_mini_games_per_match", value)?.apply()
 	}
 
-	fun getMaxPoint(): Int? {
-		return sharedPreferences?.getInt("max_points_per_game", 3)
+	fun getMaxMiniGamesPerMatch(): Int? {
+		return sharedPreferences?.getInt("max_mini_games_per_match", 3)
 	}
 
 	fun saveGameRandomization(value: Boolean) {

@@ -2,7 +2,6 @@ package com.example.reactrumble
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.random.Random
 
@@ -13,9 +12,11 @@ class GameManager private constructor() {
         var playerOneScore: Int = 0
         var playerTwoScore: Int = 0
         var maxRoundsPerMiniGame: Int = 3 //Get From Preferences, default is 3
-        var maxPointsPerMatch: Int = 3 //Get From Preferences, default is 3
+        var maxMiniGamesPerMatch: Int = 3 //Get From Preferences, default is 3
         var lastGameIndex: Int = -1
+        var miniGamesPlayedCount: Int = 0
         var instance: GameManager? = null
+        var DELAY_TIME = 2000L
         private lateinit var list: Array<Class<out AppCompatActivity>>
 
         fun startGame(context: Context, list: Array<Class<out AppCompatActivity>>) {
@@ -25,10 +26,10 @@ class GameManager private constructor() {
             instance = GameManager()
 
             maxRoundsPerMiniGame = GamePreferences.getInstance(context).getNoOFRounds() ?: maxRoundsPerMiniGame
-            maxPointsPerMatch = GamePreferences.getInstance(context).getMaxPoint() ?: maxPointsPerMatch
+            maxMiniGamesPerMatch = GamePreferences.getInstance(context).getMaxMiniGamesPerMatch() ?: maxMiniGamesPerMatch
             this.list = list
-            this.playerOneScore = 0
-            this.playerTwoScore = 0
+            playerOneScore = 0
+            playerTwoScore = 0
             nextGame(context)
         }
 
@@ -36,7 +37,7 @@ class GameManager private constructor() {
          * If game is not over, we swtich to a random game.
          */
         fun nextGame(context: Context) {
-            if (playerOneScore >= maxPointsPerMatch || playerTwoScore >= maxPointsPerMatch) {
+            if (miniGamesPlayedCount >= maxMiniGamesPerMatch) {
                 gameOver(context)
             } else {
                 var index : Int
@@ -45,6 +46,7 @@ class GameManager private constructor() {
                 } while(index == lastGameIndex && list.size > 1) //Ensures we don't get same game twice
                 val intent = Intent(context, list[index])
                 lastGameIndex = index
+                miniGamesPlayedCount++
                 context.startActivity(intent)
             }
 

@@ -34,6 +34,7 @@ class GameOverActivity : AppCompatActivity() {
         } else {
             gameOverText.text = "Player 2 Wins"
         }
+        // Add Match Drawn Logic
 
         val homeButton : Button = findViewById(R.id.homeButton)
         homeButton.setOnClickListener{

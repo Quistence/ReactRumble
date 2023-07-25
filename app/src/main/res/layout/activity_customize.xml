@@ -38,8 +38,8 @@
             android:id="@+id/selectNoOfRoundsTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20sp"
-            android:text="Select No. Of Rounds"
+            android:layout_marginTop="40sp"
+            android:text="No. Of Rounds Per Mini-Game"
             android:textSize="20sp" />
 
         <androidx.appcompat.widget.AppCompatSpinner
@@ -53,22 +53,23 @@
             android:id="@+id/randomizeSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Randomize Game"
+            android:layout_marginTop="40dp"
+            android:text="Randomize Games"
             android:textSize="20sp"
             android:thumb="@drawable/switch_thumb"
             app:switchPadding="10dp"
             app:track="@drawable/switch_track" />
 
         <TextView
-            android:id="@+id/maxPointsPerGameTitleTextView"
+            android:id="@+id/maxMiniGamesPerMatchTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Max Points Per Game"
-            android:textSize="20sp" />
+            android:text="Max Mini-Games Per Match"
+            android:textSize="20sp"
+            android:layout_marginTop="40sp"/>
 
         <RadioGroup
-            android:id="@+id/maxPointsPerGameRadioButtonGroup"
+            android:id="@+id/maxMiniGamesPerMatch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -116,7 +117,7 @@
             android:id="@+id/btnSavePreferences"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/background_green"
             android:text="Save" />
     </LinearLayout>
