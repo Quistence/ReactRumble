@@ -13,7 +13,8 @@ class GameManager private constructor() {
         private lateinit var pref: SharedPreferences
         var playerOneScore: Int = 0
         var playerTwoScore: Int = 0
-        var maxScore: Int = 5
+        var maxRoundsPerMiniGame: Int = 5 //Get From Preferences
+        var maxPointsPerMatch: Int = 5 //Get From Preferences
         var lastGameIndex: Int = -1
         var instance: GameManager? = null
         private lateinit var list: Array<Class<out AppCompatActivity>>
@@ -36,7 +37,7 @@ class GameManager private constructor() {
          * If game is not over, we swtich to a random game.
          */
         fun nextGame(context: Context) {
-            if (playerOneScore >= maxScore || playerTwoScore >= maxScore) {
+            if (playerOneScore >= maxPointsPerMatch || playerTwoScore >= maxPointsPerMatch) {
                 gameOver(context)
             } else {
                 var index : Int

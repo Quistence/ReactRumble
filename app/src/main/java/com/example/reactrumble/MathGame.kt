@@ -1,6 +1,7 @@
 package com.example.reactrumble
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
@@ -21,19 +22,16 @@ class MathGame : AppCompatActivity() {
 
     private val gameInstructions = "Tap if equations are correct!"
 
-    private var player1score = 0
-    private var player2score = 0
     private lateinit var equationTimer: CountDownTimer
 
     private var tapCount: Int = 0
     private var isGamePaused: Boolean = false
-    private var isTimerRunning: Boolean = false
 
     companion object {
         //Can be configured from GameEngine
-        private const val MAX_GAME_TAPS = 5
         private const val MAX_GAME_TIME = 60000L
         private const val DELAY_TIME = 2000L
+        private val MAX_GAME_TAPS = GameManager.maxRoundsPerMiniGame
         private val COLOR_CORRECT = Color.parseColor("#C947D86B")
         private val COLOR_INCORRECT = Color.parseColor("#D34A4A")
         private val COLOR_DEFAULT = Color.parseColor("#A9A9C8")
@@ -61,15 +59,18 @@ class MathGame : AppCompatActivity() {
         player1instructions.text = gameInstructions
         player2instructions.text = gameInstructions
 
+        //Set Initial Player Scores from previous games
+        updateScoreText()
+
         GlobalScope.launch(Dispatchers.Main) {
             delay(3000)
             countdownTextP1.text = "3"
             countdownTextP2.text = "3"
-            startCountdown()
+            startInitialCountdown()
         }
     }
 
-    private fun startCountdown() {
+    private fun startInitialCountdown() {
         val countdownTextP1: TextView = findViewById(R.id.countdownTextP1)
         val countdownTextP2: TextView = findViewById(R.id.countdownTextP2)
 
@@ -91,7 +92,6 @@ class MathGame : AppCompatActivity() {
                 startEquationGeneration()
             }
         }
-
         equationTimer.start()
     }
 
@@ -104,11 +104,8 @@ class MathGame : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                val equationTextP1: TextView = findViewById(R.id.equationTextP1)
-                val equationTextP2: TextView = findViewById(R.id.equationTextP2)
-                equationTextP1.text = "Game Over! Score: $player1score"
-                equationTextP2.text = "Game Over! Score: $player2score"
                 //Call Next Game or Game Over Screen
+                GameManager.nextGame(this@MathGame)
             }
         }
         equationTimer.start()
@@ -155,8 +152,8 @@ class MathGame : AppCompatActivity() {
 
     private fun increaseScore(playerZone: LinearLayout, equationText: TextView) {
         when (playerZone.id) {
-            R.id.player1_zone -> player1score++
-            R.id.player2_zone -> player2score++
+            R.id.player1_zone -> GameManager.playerOneScore++
+            R.id.player2_zone -> GameManager.playerTwoScore++
         }
         equationText.text = "AWESOME JOB!"
         updateScoreText()
@@ -164,8 +161,8 @@ class MathGame : AppCompatActivity() {
 
     private fun decreaseScore(playerZone: LinearLayout, equationText: TextView) {
         when (playerZone.id) {
-            R.id.player1_zone -> player1score--
-            R.id.player2_zone -> player2score--
+            R.id.player1_zone -> GameManager.playerOneScore--
+            R.id.player2_zone -> GameManager.playerTwoScore--
         }
         equationText.text = "BOO! YOU SUCK!"
         updateScoreText()
@@ -174,8 +171,8 @@ class MathGame : AppCompatActivity() {
     private fun updateScoreText() {
         val player1DisplayScore: TextView = findViewById(R.id.player1_score)
         val player2DisplayScore: TextView = findViewById(R.id.player2_score)
-        player1DisplayScore.text = "SCORE: $player1score"
-        player2DisplayScore.text = "SCORE: $player2score"
+        player1DisplayScore.text = "SCORE: ${GameManager.playerOneScore}"
+        player2DisplayScore.text = "SCORE: ${GameManager.playerTwoScore}"
     }
 
     private fun disablePlayerZones() {
@@ -199,11 +196,23 @@ class MathGame : AppCompatActivity() {
     }
 
     private fun checkGameOver(player1Zone: LinearLayout, player2Zone: LinearLayout) {
-        if (++tapCount >= MAX_GAME_TAPS) {
-            equationTimer.cancel()
-            equationTimer.onFinish()
+        if (++tapCount >= MAX_GAME_TAPS || GameManager.playerOneScore >= GameManager.maxPointsPerMatch || GameManager.playerTwoScore >= GameManager.maxPointsPerMatch) {
             player1Zone.isClickable = false
             player2Zone.isClickable = false
+            //Delay for players to check results of last round
+            GlobalScope.launch(Dispatchers.Main) {
+                delay(DELAY_TIME)
+                equationTimer.cancel()
+                equationTimer.onFinish()
+            }
         }
     }
+
+    override fun onBackPressed() {
+        // Navigate to HomeActivity when back button is pressed
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
 }

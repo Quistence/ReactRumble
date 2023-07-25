@@ -1,6 +1,7 @@
 package com.example.reactrumble
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
@@ -23,19 +24,16 @@ class ColorsGame : AppCompatActivity() {
     private val PREFS_FILENAME = "customizationsPreferences"
     private lateinit var preferences: SharedPreferences
 
-    private var player1score = 0
-    private var player2score = 0
     private lateinit var colorTimer: CountDownTimer
 
     private var tapCount: Int = 0
     private var isGamePaused: Boolean = false
-    private var isTimerRunning: Boolean = false
 
     companion object {
         //Can be configured from GameEngine
-        private const val MAX_GAME_TAPS = 5
         private const val MAX_GAME_TIME = 60000L
         private const val DELAY_TIME = 900L
+        private val MAX_GAME_TAPS = GameManager.maxRoundsPerMiniGame
         private val COLOR_CORRECT = Color.parseColor("#C947D86B")
         private val COLOR_INCORRECT = Color.parseColor("#D34A4A")
         private val COLOR_DEFAULT = Color.parseColor("#A9A9C8")
@@ -67,16 +65,19 @@ class ColorsGame : AppCompatActivity() {
         player1instructions.text = gameInstructions
         player2instructions.text = gameInstructions
 
+        //Set Initial Player Scores from previous games
+        updateScoreText()
+
         GlobalScope.launch(Dispatchers.Main) {
             delay(3000)
             countdownTextP1.text = "3"
             countdownTextP2.text = "3"
-            startCountdown()
+            startInitialCountdown()
         }
     }
 
     // Starts a countdown before the colors start popping up
-    private fun startCountdown() {
+    private fun startInitialCountdown() {
         val countdownTextP1: TextView = findViewById(R.id.countdownTextP1)
         val countdownTextP2: TextView = findViewById(R.id.countdownTextP2)
 
@@ -98,7 +99,6 @@ class ColorsGame : AppCompatActivity() {
                 startColorsGeneration()
             }
         }
-
         colorTimer.start()
     }
 
@@ -131,16 +131,14 @@ class ColorsGame : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                val colorTextP1: TextView = findViewById(R.id.colorTextP1)
-                val colorTextP2: TextView = findViewById(R.id.colorTextP2)
-                colorTextP1.setTextColor(Color.BLACK)
-                colorTextP2.setTextColor(Color.BLACK)
-                colorTextP1.text = "Game Over! Score: $player1score"
-                colorTextP2.text = "Game Over! Score: $player2score"
+                //Delay for players to check results of last round
+                GlobalScope.launch(Dispatchers.Main) {
+                    delay(DELAY_TIME)
+                }
                 //Call Next Game or Game Over Screen
+                GameManager.nextGame(this@ColorsGame)
             }
         }
-
         colorTimer.start()
     }
 
@@ -195,8 +193,8 @@ class ColorsGame : AppCompatActivity() {
 
     private fun increaseScore(playerZone: LinearLayout, colorText: TextView) {
         when (playerZone.id) {
-            R.id.player1_zone -> player1score++
-            R.id.player2_zone -> player2score++
+            R.id.player1_zone -> GameManager.playerOneScore++
+            R.id.player2_zone -> GameManager.playerTwoScore++
         }
         colorText.setTextColor(Color.BLACK)
         colorText.text = "AWESOME JOB!"
@@ -205,8 +203,8 @@ class ColorsGame : AppCompatActivity() {
 
     private fun decreaseScore(playerZone: LinearLayout, colorText: TextView) {
         when (playerZone.id) {
-            R.id.player1_zone -> player1score--
-            R.id.player2_zone -> player2score--
+            R.id.player1_zone -> GameManager.playerOneScore--
+            R.id.player2_zone -> GameManager.playerTwoScore--
         }
         colorText.setTextColor(Color.BLACK)
         colorText.text = "BOO! YOU SUCK!"
@@ -216,8 +214,8 @@ class ColorsGame : AppCompatActivity() {
     private fun updateScoreText() {
         val player1DisplayScore: TextView = findViewById(R.id.player1_score)
         val player2DisplayScore: TextView = findViewById(R.id.player2_score)
-        player1DisplayScore.text = "SCORE: $player1score"
-        player2DisplayScore.text = "SCORE: $player2score"
+        player1DisplayScore.text = "SCORE: ${GameManager.playerOneScore}"
+        player2DisplayScore.text = "SCORE: ${GameManager.playerTwoScore}"
     }
 
     private fun disablePlayerZones() {
@@ -230,8 +228,8 @@ class ColorsGame : AppCompatActivity() {
             delay(DELAY_TIME)
             isGamePaused = false
 
-            //For Touch Zones activation to be synced with equation generation resumption
-            delay(700)
+            //For Touch Zones activation to be synced with colors generation resumption
+            //delay(700)
 
             player1Zone.isEnabled = true
             player1Zone.setBackgroundColor(COLOR_DEFAULT)
@@ -241,12 +239,23 @@ class ColorsGame : AppCompatActivity() {
     }
 
     private fun checkGameOver(player1Zone: LinearLayout, player2Zone: LinearLayout) {
-        if (++tapCount >= MAX_GAME_TAPS) {
-            colorTimer.cancel()
-            colorTimer.onFinish()
+        if (++tapCount >= MAX_GAME_TAPS || GameManager.playerOneScore >= GameManager.maxPointsPerMatch || GameManager.playerTwoScore >= GameManager.maxPointsPerMatch) {
             player1Zone.isClickable = false
             player2Zone.isClickable = false
+            //Delay for players to check results of last round
+            GlobalScope.launch(Dispatchers.Main) {
+                delay(DELAY_TIME)
+                colorTimer.cancel()
+                colorTimer.onFinish()
+            }
         }
+    }
+
+    override fun onBackPressed() {
+        // Navigate to HomeActivity when back button is pressed
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
 }
