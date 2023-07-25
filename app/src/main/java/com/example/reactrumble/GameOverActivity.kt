@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import android.widget.Button
 import android.widget.TextView
 
@@ -42,4 +43,10 @@ class GameOverActivity : AppCompatActivity() {
             startActivity(i)
         }
     }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+    }
+
 }
