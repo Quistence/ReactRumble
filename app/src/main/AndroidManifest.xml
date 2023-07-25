@@ -20,9 +20,6 @@
             android:name=".GameOverActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingsActivity"
-            android:exported="false" />
-        <activity
             android:name=".MathGame"
             android:exported="true"  />
         <activity

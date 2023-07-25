@@ -3,8 +3,6 @@ package com.example.reactrumble
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatSpinner
@@ -13,7 +11,7 @@ import androidx.appcompat.widget.SwitchCompat
 class CustomizeActivity : AppCompatActivity() {
 	private lateinit var noOfRoundSpinner: AppCompatSpinner
 	private lateinit var randomizeSwitch: SwitchCompat
-	private lateinit var maxMiniGamesPerMatchRadioGroup: RadioGroup
+	private lateinit var maxMiniGamesPerMatchSpinner: AppCompatSpinner
 	private lateinit var btnSavePreferences: AppCompatButton
 	private lateinit var gamePreferences: GamePreferences
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +21,7 @@ class CustomizeActivity : AppCompatActivity() {
 
 		noOfRoundSpinner = findViewById(R.id.noOfRoundSpinner)
 		randomizeSwitch = findViewById(R.id.randomizeSwitch)
-		maxMiniGamesPerMatchRadioGroup = findViewById(R.id.maxMiniGamesPerMatch)
+		maxMiniGamesPerMatchSpinner = findViewById(R.id.maxMiniGamesPerMatchSpinner)
 		btnSavePreferences = findViewById(R.id.btnSavePreferences)
 		gamePreferences = GamePreferences.getInstance(applicationContext)
 
@@ -34,6 +32,7 @@ class CustomizeActivity : AppCompatActivity() {
 		).also { adapter ->
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 			noOfRoundSpinner.adapter = adapter
+			maxMiniGamesPerMatchSpinner.adapter = adapter
 		}
 
 		btnSavePreferences.setOnClickListener {
@@ -41,31 +40,27 @@ class CustomizeActivity : AppCompatActivity() {
 			gamePreferences.saveNoOFRounds(selectedNoOfRounds)
 			val isRandomized = randomizeSwitch.isChecked
 			gamePreferences.saveGameRandomization(isRandomized)
-
 			val selectedMaxMiniGamesPerMatch =
-				findViewById<RadioButton>(maxMiniGamesPerMatchRadioGroup.checkedRadioButtonId)
-			val maxMiniGamesPerMatch = selectedMaxMiniGamesPerMatch.text.toString().toInt()
-			gamePreferences.saveMaxMiniGamesPerMatch(maxMiniGamesPerMatch)
+				(maxMiniGamesPerMatchSpinner.selectedItem as String).toInt()
+			gamePreferences.saveMaxMiniGamesPerMatch(selectedMaxMiniGamesPerMatch)
 
 			Toast.makeText(this@CustomizeActivity, "Customization Saved", Toast.LENGTH_SHORT).show()
 		}
 		val savedNoOfRounds = gamePreferences.getNoOFRounds()
 		val savedRandomized = gamePreferences.getGameRandomization()
-		val savedMaxPointsPerGame = gamePreferences.getMaxMiniGamesPerMatch()
+		val savedMaxMiniGamesPerMatch = gamePreferences.getMaxMiniGamesPerMatch()
 
 		noOfRoundSpinner.setSelection(getIndex(noOfRoundSpinner, savedNoOfRounds.toString()))
+		maxMiniGamesPerMatchSpinner.setSelection(
+			getIndex(
+				maxMiniGamesPerMatchSpinner,
+				savedMaxMiniGamesPerMatch.toString()
+			)
+		)
 
 		if (savedRandomized != null) {
 			randomizeSwitch.isChecked = savedRandomized
 		}
-
-		// Set the appropriate RadioButton based on the savedMaxPointsPerGame value
-		val radioButton: RadioButton = when (savedMaxPointsPerGame) {
-			5 -> findViewById(R.id.threePointRadioButton)
-			10 -> findViewById(R.id.fivePointRadioButton)
-			else -> findViewById(R.id.tenPointRadioButton)
-		}
-		radioButton.isChecked = true
 	}
 
 	private fun getIndex(spinner: AppCompatSpinner, value: String): Int {

@@ -21,12 +21,7 @@ class HomeActivity : AppCompatActivity() {
 		//else
 			setContentView(R.layout.activity_home)
 
-		val settingsButton: Button = findViewById(R.id.settingsButton)
 		val customizeButton: Button = findViewById(R.id.customizeButton)
-
-		settingsButton.setOnClickListener{
-			startActivity(Intent(this@HomeActivity, SettingsActivity::class.java))
-		}
 
 		customizeButton.setOnClickListener{
 			startActivity(Intent(this@HomeActivity, CustomizeActivity::class.java))
@@ -41,7 +36,6 @@ class HomeActivity : AppCompatActivity() {
 		else
 			setContentView(R.layout.activity_home)
 
-		val settingsButton: Button = findViewById(R.id.settingsButton)
 		val customizeButton: Button = findViewById(R.id.customizeButton)
 		val startGame: Button = findViewById(R.id.quickStartButton)
 		val games = arrayOf(MathGame::class.java, FlagsGame::class.java, ColorsGame::class.java)
@@ -56,11 +50,6 @@ class HomeActivity : AppCompatActivity() {
 			//startActivity(Intent(this@HomeActivity, MathGame::class.java))
 			GameManager.startGame(this, games)
 		}
-
-		settingsButton.setOnClickListener{
-			startActivity(Intent(this@HomeActivity, SettingsActivity::class.java))
-		}
-
 		customizeButton.setOnClickListener{
 			startActivity(Intent(this@HomeActivity, CustomizeActivity::class.java))
 		}
