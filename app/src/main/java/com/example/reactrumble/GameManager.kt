@@ -10,11 +10,10 @@ class GameManager private constructor() {
 
     companion object {
 
-        private lateinit var pref: SharedPreferences
         var playerOneScore: Int = 0
         var playerTwoScore: Int = 0
-        var maxRoundsPerMiniGame: Int = 5 //Get From Preferences
-        var maxPointsPerMatch: Int = 5 //Get From Preferences
+        var maxRoundsPerMiniGame: Int = 3 //Get From Preferences, default is 3
+        var maxPointsPerMatch: Int = 3 //Get From Preferences, default is 3
         var lastGameIndex: Int = -1
         var instance: GameManager? = null
         private lateinit var list: Array<Class<out AppCompatActivity>>
@@ -24,9 +23,9 @@ class GameManager private constructor() {
                 return
             }
             instance = GameManager()
-            pref = context.getSharedPreferences("customizationsPreferences",
-                AppCompatActivity.MODE_PRIVATE
-            )
+
+            maxRoundsPerMiniGame = GamePreferences.getInstance(context).getNoOFRounds() ?: maxRoundsPerMiniGame
+            maxPointsPerMatch = GamePreferences.getInstance(context).getMaxPoint() ?: maxPointsPerMatch
             this.list = list
             this.playerOneScore = 0
             this.playerTwoScore = 0
