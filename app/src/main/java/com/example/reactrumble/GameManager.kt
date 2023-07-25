@@ -15,16 +15,10 @@ class GameManager private constructor() {
         var maxMiniGamesPerMatch: Int = 3 //Get From Preferences, default is 3
         var lastGameIndex: Int = -1
         var miniGamesPlayedCount: Int = 0
-        var instance: GameManager? = null
         var DELAY_TIME = 2000L
         private lateinit var list: Array<Class<out AppCompatActivity>>
 
         fun startGame(context: Context, list: Array<Class<out AppCompatActivity>>) {
-            if (instance != null) {
-                return
-            }
-            instance = GameManager()
-
             maxRoundsPerMiniGame = GamePreferences.getInstance(context).getNoOFRounds() ?: maxRoundsPerMiniGame
             maxMiniGamesPerMatch = GamePreferences.getInstance(context).getMaxMiniGamesPerMatch() ?: maxMiniGamesPerMatch
             this.list = list
@@ -57,11 +51,11 @@ class GameManager private constructor() {
          */
         fun gameOver(context: Context) {
             val p1Win = playerOneScore > playerTwoScore
+            miniGamesPlayedCount = 0
             val intent = Intent(context, GameOverActivity::class.java)
             intent.putExtra("p1", playerOneScore)
             intent.putExtra("p2", playerTwoScore)
             intent.putExtra("winner", p1Win)
-            instance = null
             context.startActivity(intent)
         }
 
