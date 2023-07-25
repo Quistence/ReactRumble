@@ -65,66 +65,28 @@
                 app:track="@drawable/switch_track" />
 
             <TextView
-                android:id="@+id/maxMiniGamesPerMatchTitleTextView"
+                android:id="@+id/maxMiniGamesPerMatchTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40sp"
                 android:text="Max Mini-Games Per Match"
                 android:textSize="20sp" />
 
-            <RadioGroup
-                android:id="@+id/maxMiniGamesPerMatch"
-                android:layout_width="wrap_content"
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/maxMiniGamesPerMatchSpinner"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/threePointRadioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/radio_button_selector"
-                    android:button="@android:color/transparent"
-                    android:checked="true"
-                    android:elevation="4dp"
-
-                    android:gravity="center"
-                    android:text="3" />
-
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/fivePointRadioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/radio_button_selector"
-                    android:button="@android:color/transparent"
-                    android:elevation="4dp"
-
-                    android:gravity="center"
-                    android:text="5" />
-
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/tenPointRadioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/radio_button_selector"
-                    android:button="@android:color/transparent"
-                    android:elevation="4dp"
-                    android:gravity="center"
-                    android:text="10" />
-            </RadioGroup>
+                android:padding="15dp"
+                android:scrollbarSize="30dp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnSavePreferences"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
+                android:layout_marginBottom="50dp"
                 android:background="@drawable/background_green"
-                android:text="Save"
-                android:layout_marginBottom="50dp"/>
+                android:text="Save" />
         </LinearLayout>
     </ScrollView>
 
