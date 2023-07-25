@@ -51,17 +51,6 @@
             android:textColor="@color/black"
             android:textSize="20sp" />
 
-        <!-- Settings Button -->
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/settingsButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/background_blue"
-            android:padding="16dp"
-            android:text="Settings"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
     </LinearLayout>
 
 </LinearLayout>
