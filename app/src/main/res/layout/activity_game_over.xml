@@ -76,11 +76,18 @@
         </LinearLayout>
     </LinearLayout>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/playAgainButton"
+        android:layout_width="300sp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_blue"
+        android:text="Play Again" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/homeButton"
         android:layout_width="300sp"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_blue"
-        android:text="Play Again" />
+        android:layout_margin="20sp"
+        android:background="@drawable/background_peach"
+        android:text="Go Home" />
 </LinearLayout>

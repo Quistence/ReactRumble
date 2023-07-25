@@ -36,10 +36,17 @@ class GameOverActivity : AppCompatActivity() {
         }
         // Add Match Drawn Logic
 
+        val playAgainButton : Button = findViewById(R.id.playAgainButton)
+        playAgainButton.setOnClickListener{
+            val intent = Intent(this@GameOverActivity, GameManager::class.java)
+            startActivity(intent)
+            this.finish()
+        }
         val homeButton : Button = findViewById(R.id.homeButton)
         homeButton.setOnClickListener{
-            val i = Intent(this, HomeActivity::class.java)
-            startActivity(i)
+            val intent = Intent(this@GameOverActivity, HomeActivity::class.java)
+            startActivity(intent)
+            this.finish()
         }
     }
 }

@@ -25,8 +25,8 @@ class GameManager private constructor() {
             }
             instance = GameManager()
 
-            maxRoundsPerMiniGame = GamePreferences.getInstance(context).getNoOFRounds() ?: maxRoundsPerMiniGame
-            maxMiniGamesPerMatch = GamePreferences.getInstance(context).getMaxMiniGamesPerMatch() ?: maxMiniGamesPerMatch
+            maxRoundsPerMiniGame = GamePreferences.getInstance(context).getNoOFRounds() !!
+            maxMiniGamesPerMatch = GamePreferences.getInstance(context).getMaxMiniGamesPerMatch() !!
             this.list = list
             playerOneScore = 0
             playerTwoScore = 0
