@@ -10,18 +10,17 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.reactrumble.controllers.GameManager
 import com.example.reactrumble.custompreferences.CustomizeActivity
+import com.example.reactrumble.custompreferences.GamePreferences
 import com.example.reactrumble.minigames.ColorsGame
 import com.example.reactrumble.minigames.FlagsGame
 import com.example.reactrumble.minigames.MathGame
 
 class HomeActivity : AppCompatActivity() {
 	private val PREFS_FILENAME = "customizationsPreferences"
-	private lateinit var preferences: SharedPreferences
 	private lateinit var gamePreferences: GamePreferences
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
-		preferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
 		gamePreferences = GamePreferences.getInstance(applicationContext)
 		if(gamePreferences.getDarkMode()==true) {
 			AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

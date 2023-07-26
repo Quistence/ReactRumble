@@ -34,10 +34,10 @@ class CustomizeActivity : AppCompatActivity() {
 		gamePreferences = GamePreferences.getInstance(applicationContext)
 
 		ArrayAdapter.createFromResource(
-            this@CustomizeActivity,
-            R.array.no_of_rounds_array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
+			this@CustomizeActivity,
+			R.array.no_of_rounds_array,
+			android.R.layout.simple_spinner_item
+		).also { adapter ->
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 			noOfRoundSpinner.adapter = adapter
 			maxMiniGamesPerMatchSpinner.adapter = adapter
@@ -67,10 +67,9 @@ class CustomizeActivity : AppCompatActivity() {
 		darkModeSwitch.setOnClickListener {
 			val isDarkMode = darkModeSwitch.isChecked
 			gamePreferences.saveDarkMode(isDarkMode)
-			if(isDarkMode) {
+			if (isDarkMode) {
 				AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-			}
-			else{
+			} else {
 				AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 			}
 		}
@@ -92,17 +91,17 @@ class CustomizeActivity : AppCompatActivity() {
 		if (savedDarkMode != null) {
 			darkModeSwitch.isChecked = savedDarkMode
 
-		// Set the appropriate RadioButton based on the savedMaxPointsPerGame value
-		val radioButton: RadioButton = when (savedGameSpeed) {
-			500L -> findViewById(R.id.crazyRadioButton)
-			1000L -> findViewById(R.id.shortRadioButton)
-			3000L -> findViewById(R.id.longRadioButton)
-			else -> findViewById(R.id.mediumRadioButton)
+			// Set the appropriate RadioButton based on the savedMaxPointsPerGame value
+			val radioButton: RadioButton = when (savedGameSpeed) {
+				500L -> findViewById(R.id.crazyRadioButton)
+				1000L -> findViewById(R.id.shortRadioButton)
+				3000L -> findViewById(R.id.longRadioButton)
+				else -> findViewById(R.id.mediumRadioButton)
+			}
+			radioButton.isChecked = true
+
 		}
-		radioButton.isChecked = true
-
 	}
-
 	private fun getIndex(spinner: AppCompatSpinner, value: String): Int {
 		val adapter = spinner.adapter
 		for (i in 0 until adapter.count) {
@@ -112,4 +111,5 @@ class CustomizeActivity : AppCompatActivity() {
 		}
 		return 0
 	}
+
 }

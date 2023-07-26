@@ -7,8 +7,9 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="30dp"
-    tools:context=".custompreferences.CustomizeActivity">
-    style="@style/ScreenBackground"
+    tools:context=".custompreferences.CustomizeActivity"
+    style="@style/ScreenBackground">
+
 
     <!-- Game Icon -->
     <ImageView
@@ -56,17 +57,6 @@
                 android:background="@color/light_grey"
                 android:scrollbarSize="30dp" />
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/darkModeSwitch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:text="Dark Mode"
-                android:textSize="20sp"
-                android:thumb="@drawable/switch_thumb"
-                app:switchPadding="10dp"
-                app:track="@drawable/switch_track" />
-
             <TextView
                 android:id="@+id/maxMiniGamesPerMatchTextView"
                 android:layout_width="wrap_content"
@@ -90,6 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Game Speed (Time for Reactions)"
+                style="@style/TextColor"
                 android:textSize="20sp"
                 android:layout_marginTop="40sp"/>
 
@@ -108,6 +99,7 @@
                     android:layout_margin="5dp"
                     android:background="@drawable/radio_button_selector"
                     android:button="@android:color/transparent"
+                    android:textColor="@android:color/black"
                     android:checked="true"
                     android:elevation="4dp"
                     android:gravity="center"
@@ -120,6 +112,7 @@
                     android:layout_margin="5dp"
                     android:background="@drawable/radio_button_selector"
                     android:button="@android:color/transparent"
+                    android:textColor="@android:color/black"
                     android:elevation="4dp"
                     android:gravity="center"
                     android:text="SHORT" />
@@ -131,6 +124,7 @@
                     android:layout_margin="5dp"
                     android:background="@drawable/radio_button_selector"
                     android:button="@android:color/transparent"
+                    android:textColor="@android:color/black"
                     android:checked="true"
                     android:elevation="4dp"
                     android:gravity="center"
@@ -143,23 +137,22 @@
                     android:layout_margin="5dp"
                     android:background="@drawable/radio_button_selector"
                     android:button="@android:color/transparent"
+                    android:textColor="@android:color/black"
                     android:elevation="4dp"
                     android:gravity="center"
                     android:text="LONG" />
             </RadioGroup>
 
-
             <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/randomizeSwitch"
+                android:id="@+id/darkModeSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:text="Randomize Games"
+                android:text="Dark Mode"
                 android:textSize="20sp"
-                android:textColor="@color/black"
                 android:thumb="@drawable/switch_thumb"
                 app:switchPadding="10dp"
-                app:track="@drawable/switch_track" />
+                app:track="@drawable/switch_track"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnSavePreferences"
