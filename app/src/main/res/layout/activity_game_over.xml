@@ -88,6 +88,6 @@
         android:layout_width="300sp"
         android:layout_height="wrap_content"
         android:layout_margin="20sp"
-        android:background="@drawable/background_peach"
+        android:background="@drawable/background_blue"
         android:text="Go Home" />
 </LinearLayout>
