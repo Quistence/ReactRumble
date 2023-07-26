@@ -26,6 +26,7 @@ class MathGame : AppCompatActivity() {
 
     private var tapCount: Int = 0
     private var isGamePaused: Boolean = false
+    private var isEquationTapped = false
 
     companion object {
         //Can be configured from GameEngine
@@ -115,14 +116,19 @@ class MathGame : AppCompatActivity() {
     }
 
     private fun handleTap(isCorrect: Boolean, playerZone: LinearLayout, equationText: TextView) {
-        if (isCorrect) {
-            playerZone.setBackgroundColor(COLOR_CORRECT)
-            increaseScore(playerZone, equationText)
-        } else {
-            playerZone.setBackgroundColor(COLOR_INCORRECT)
-            decreaseScore(playerZone, equationText)
+        if (!isEquationTapped) {
+            isEquationTapped = true // Set the flag to true to prevent multiple taps
+
+            if (isCorrect) {
+                playerZone.setBackgroundColor(COLOR_CORRECT)
+                increaseScore(playerZone, equationText)
+            } else {
+                playerZone.setBackgroundColor(COLOR_INCORRECT)
+                decreaseScore(playerZone, equationText)
+            }
+
+            disablePlayerZones()
         }
-        disablePlayerZones()
     }
 
     private fun increaseScore(playerZone: LinearLayout, equationText: TextView) {
@@ -167,6 +173,8 @@ class MathGame : AppCompatActivity() {
             player1Zone.setBackgroundColor(COLOR_DEFAULT)
             player2Zone.isEnabled = true
             player2Zone.setBackgroundColor(COLOR_DEFAULT)
+
+            isEquationTapped = false // Reset the flag
         }
     }
 
