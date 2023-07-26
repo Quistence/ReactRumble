@@ -126,7 +126,11 @@ class ColorsGame : AppCompatActivity() {
 
     // Returns a random color value from a local array
     private fun getRandomColor(): Int {
-        val colors = listOf(Color.RED, Color.GREEN, Color.BLUE, Color.MAGENTA)
+        val colors: List<Int> = if (gamePreferences.getDarkMode() == true) {
+            listOf(Color.RED, Color.GREEN, Color.CYAN, Color.MAGENTA)
+        } else {
+            listOf(Color.RED, Color.GREEN, Color.BLUE, Color.MAGENTA)
+        }
         return colors[Random.nextInt(colors.size)]
     }
 
@@ -155,6 +159,7 @@ class ColorsGame : AppCompatActivity() {
             "Pink" -> Color.MAGENTA
             else -> COLOR_DEFAULT // Set a default color for unknown color names
         }
+
 
         if (textColor == correctColorValue) {
             playerZone.setBackgroundColor(COLOR_CORRECT)
