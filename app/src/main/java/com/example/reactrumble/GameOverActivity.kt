@@ -22,7 +22,7 @@ class GameOverActivity : AppCompatActivity() {
 
         val p1Score = intent.getIntExtra("p1", 0)
         val p2Score = intent.getIntExtra("p2", 0)
-        val p1Win = intent.getBooleanExtra("winner", true)
+        val win = intent.getIntExtra("winner", 0)
         val gameOverText : TextView = findViewById(R.id.gameOverText)
         val p1ScoreText : TextView = findViewById(R.id.p1ScoreText)
         val p2ScoreText :TextView = findViewById(R.id.p2ScoreText)
@@ -30,17 +30,17 @@ class GameOverActivity : AppCompatActivity() {
         p1ScoreText.text = p1Score.toString()
         p2ScoreText.text = p2Score.toString()
 
-        if(p1Win){
+        if(win > 0){
             gameOverText.text = "Player 1 Wins"
-        } else {
+        } else if(win < 0) {
             gameOverText.text = "Player 2 Wins"
+        } else {
+            gameOverText.text = "Draw"
         }
-        // Add Match Drawn Logic
 
         val playAgainButton : Button = findViewById(R.id.playAgainButton)
         playAgainButton.setOnClickListener{
-            val intent = Intent(this@GameOverActivity, GameManager::class.java)
-            startActivity(intent)
+            GameManager.startGame(this)
             this.finish()
         }
         val homeButton : Button = findViewById(R.id.homeButton)
