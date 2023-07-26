@@ -1,12 +1,13 @@
-package com.example.reactrumble
+package com.example.reactrumble.controllers
 
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MotionEvent
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.example.reactrumble.HomeActivity
+import com.example.reactrumble.R
 
 class GameOverActivity : AppCompatActivity() {
     private val PREFS_FILENAME = "customizationsPreferences"
@@ -25,7 +26,7 @@ class GameOverActivity : AppCompatActivity() {
         val win = intent.getIntExtra("winner", 0)
         val gameOverText : TextView = findViewById(R.id.gameOverText)
         val p1ScoreText : TextView = findViewById(R.id.p1ScoreText)
-        val p2ScoreText :TextView = findViewById(R.id.p2ScoreText)
+        val p2ScoreText : TextView = findViewById(R.id.p2ScoreText)
 
         p1ScoreText.text = p1Score.toString()
         p2ScoreText.text = p2Score.toString()

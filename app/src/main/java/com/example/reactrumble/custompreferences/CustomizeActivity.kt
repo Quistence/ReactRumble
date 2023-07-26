@@ -1,15 +1,17 @@
-package com.example.reactrumble
+package com.example.reactrumble.custompreferences
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.appcompat.widget.SwitchCompat
+import com.example.reactrumble.HomeActivity
+import com.example.reactrumble.R
 
 class CustomizeActivity : AppCompatActivity() {
 	private lateinit var noOfRoundSpinner: AppCompatSpinner
@@ -31,10 +33,10 @@ class CustomizeActivity : AppCompatActivity() {
 		gamePreferences = GamePreferences.getInstance(applicationContext)
 
 		ArrayAdapter.createFromResource(
-			this@CustomizeActivity,
-			R.array.no_of_rounds_array,
-			android.R.layout.simple_spinner_item
-		).also { adapter ->
+            this@CustomizeActivity,
+            R.array.no_of_rounds_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 			noOfRoundSpinner.adapter = adapter
 			maxMiniGamesPerMatchSpinner.adapter = adapter

@@ -1,8 +1,12 @@
-package com.example.reactrumble
+package com.example.reactrumble.controllers
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import com.example.reactrumble.custompreferences.GamePreferences
+import com.example.reactrumble.minigames.ColorsGame
+import com.example.reactrumble.minigames.FlagsGame
+import com.example.reactrumble.minigames.MathGame
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay

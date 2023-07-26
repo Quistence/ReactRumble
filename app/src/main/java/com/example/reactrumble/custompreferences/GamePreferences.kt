@@ -1,4 +1,4 @@
-package com.example.reactrumble
+package com.example.reactrumble.custompreferences
 
 import android.content.Context
 import android.content.SharedPreferences

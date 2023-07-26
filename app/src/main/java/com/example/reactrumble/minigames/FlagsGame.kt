@@ -1,4 +1,4 @@
-package com.example.reactrumble
+package com.example.reactrumble.minigames
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -11,6 +11,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.reactrumble.controllers.GameManager
+import com.example.reactrumble.HomeActivity
+import com.example.reactrumble.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay

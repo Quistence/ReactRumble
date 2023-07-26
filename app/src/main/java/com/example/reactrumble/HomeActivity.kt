@@ -7,6 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import com.example.reactrumble.controllers.GameManager
+import com.example.reactrumble.custompreferences.CustomizeActivity
+import com.example.reactrumble.minigames.ColorsGame
+import com.example.reactrumble.minigames.FlagsGame
+import com.example.reactrumble.minigames.MathGame
 
 class HomeActivity : AppCompatActivity() {
 	private val PREFS_FILENAME = "customizationsPreferences"

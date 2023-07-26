@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.reactrumble.MathGame">
+    tools:context="com.example.reactrumble.minigames.MathGame">
 
     <LinearLayout
         android:id="@+id/player2_zone"

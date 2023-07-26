@@ -7,7 +7,7 @@
     android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".GameOverActivity">
+    tools:context=".controllers.GameOverActivity">
 
     <TextView
         android:id="@+id/gameOverText"

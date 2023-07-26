@@ -1,4 +1,4 @@
-package com.example.reactrumble
+package com.example.reactrumble.minigames
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,10 +6,12 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.reactrumble.HomeActivity
+import com.example.reactrumble.R
+import com.example.reactrumble.controllers.GameManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -17,14 +19,13 @@ import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 @SuppressLint("ClickableViewAccessibility")
-class ColorsGame : AppCompatActivity() {
-
-    private val gameInstructions = "Tap Correct Colors!"
-
+class MathGame : AppCompatActivity() {
     private val PREFS_FILENAME = "customizationsPreferences"
     private lateinit var preferences: SharedPreferences
 
-    private lateinit var colorTimer: CountDownTimer
+    private val gameInstructions = "Tap if equations are correct!"
+
+    private lateinit var equationTimer: CountDownTimer
 
     private var tapCount: Int = 0
     private var isGamePaused: Boolean = false
@@ -39,21 +40,17 @@ class ColorsGame : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         preferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
 
+        super.onCreate(savedInstanceState)
         if(preferences.getBoolean("is_dark_mode", false))
-            setContentView(R.layout.dark_colors_minigame)
+            setContentView(R.layout.dark_math_minigame)
         else
-            setContentView(R.layout.colors_minigame)
-
+            setContentView(R.layout.math_minigame)
         startGame()
     }
 
-    // This method is run to start the game, it displays the game instructions and then runs the
-    // startCountdown() which in turn runs the startColorsGeneration() method
     private fun startGame() {
-
         val countdownTextP1: TextView = findViewById(R.id.countdownTextP1)
         val countdownTextP2: TextView = findViewById(R.id.countdownTextP2)
         val player1instructions: TextView = findViewById(R.id.player1_instructions)
@@ -71,118 +68,93 @@ class ColorsGame : AppCompatActivity() {
             delay(GameManager.gameDelayTime)
             countdownTextP1.text = ""
             countdownTextP2.text = ""
-            startColorsGeneration()
+            startEquationGeneration()
         }
     }
 
-    // This method uses a bunch of helper methods to generate correct and incorrect (by chance) colors and displays
-    // them on the screen
-    private fun startColorsGeneration() {
-        colorTimer = object : CountDownTimer(MAX_GAME_TIME, GameManager.gameDelayTime) {
+    private fun startEquationGeneration() {
+        equationTimer = object : CountDownTimer(MAX_GAME_TIME, GameManager.gameDelayTime) {
             override fun onTick(millisUntilFinished: Long) {
-
                 if (!isGamePaused) {
                     val player1Zone: LinearLayout = findViewById(R.id.player1_zone)
                     val player2Zone: LinearLayout = findViewById(R.id.player2_zone)
-                    val colorTextP1: TextView = findViewById(R.id.colorTextP1)
-                    val colorTextP2: TextView = findViewById(R.id.colorTextP2)
-
-                    val colorName = getRandomColorName()
-                    val colorValue = getRandomColor()
-
                     player1Zone.isEnabled = true
                     player1Zone.setBackgroundColor(COLOR_DEFAULT)
                     player2Zone.isEnabled = true
                     player2Zone.setBackgroundColor(COLOR_DEFAULT)
-
-                    displayColorText(colorName, colorValue)
-
-                    player1Zone.setOnClickListener {
-                        handleTap(player1Zone, colorTextP1)
-                        checkGameOver(player1Zone, player2Zone)
-                    }
-
-                    player2Zone.setOnClickListener {
-                        handleTap(player2Zone, colorTextP2)
-                        checkGameOver(player1Zone, player2Zone)
-                    }
+                    generateEquation()
                 }
             }
 
             override fun onFinish() {
                 //Call Next Game or Game Over Screen
-                GameManager.nextGame(this@ColorsGame)
+                GameManager.nextGame(this@MathGame)
             }
         }
-        colorTimer.start()
+        equationTimer.start()
     }
 
-    // Returns a random color name from a local array
-    private fun getRandomColorName(): String {
-        val colorNames = listOf("Red", "Green", "Blue", "Pink")
-        return colorNames[Random.nextInt(colorNames.size)]
-    }
+    private fun generateEquation() {
+        val player1Zone: LinearLayout = findViewById(R.id.player1_zone)
+        val player2Zone: LinearLayout = findViewById(R.id.player2_zone)
+        val equationTextP1: TextView = findViewById(R.id.equationTextP1)
+        val equationTextP2: TextView = findViewById(R.id.equationTextP2)
 
-    // Returns a random color value from a local array
-    private fun getRandomColor(): Int {
-        val colors = listOf(Color.RED, Color.GREEN, Color.BLUE, Color.MAGENTA)
-        return colors[Random.nextInt(colors.size)]
-    }
+        val number1 = Random.nextInt(10)
+        val number2 = Random.nextInt(10)
+        val operator = if (Random.nextBoolean()) "+" else "-"
+        val correctResult = if (operator == "+") number1 + number2 else number1 - number2
 
-    // Sets the color text, and color of the TextViews for players
-    private fun displayColorText(colorName: String, colorValue: Int) {
+        val isCorrectEquation = Random.nextBoolean()
 
-        var colorTextP1 : TextView = findViewById(R.id.colorTextP1)
-        var colorTextP2 : TextView = findViewById(R.id.colorTextP2)
+        var incorrectResultOffset = Random.nextInt(-5, 5)
+        while (incorrectResultOffset == 0) {
+            // Generate a non-zero offset to ensure incorrect equations have different results
+            incorrectResultOffset = Random.nextInt(-5, 5)
+        }
+        val result = if (isCorrectEquation) correctResult else correctResult + incorrectResultOffset
 
-        colorTextP1.text = colorName
-        colorTextP2.text = colorName
+        equationTextP1.text = "$number1 $operator $number2 = $result"
+        equationTextP2.text = "$number1 $operator $number2 = $result"
 
-        colorTextP1.setTextColor(colorValue)
-        colorTextP2.setTextColor(colorValue)
-    }
-
-    private fun handleTap(playerZone: LinearLayout, colorText: TextView) {
-
-        val colorName = colorText.text.toString()
-        val textColor = colorText.currentTextColor
-
-        val correctColorValue = when (colorName) {
-            "Red" -> Color.RED
-            "Green" -> Color.GREEN
-            "Blue" -> Color.BLUE
-            "Pink" -> Color.MAGENTA
-            else -> COLOR_DEFAULT // Set a default color for unknown color names
+        player1Zone.setOnClickListener {
+            handleTap(isCorrectEquation, player1Zone, equationTextP1)
+            checkGameOver(player1Zone, player2Zone)
         }
 
-        if (textColor == correctColorValue) {
+        player2Zone.setOnClickListener {
+            handleTap(isCorrectEquation, player2Zone, equationTextP2)
+            checkGameOver(player1Zone, player2Zone)
+        }
+    }
+
+    private fun handleTap(isCorrect: Boolean, playerZone: LinearLayout, equationText: TextView) {
+        if (isCorrect) {
             playerZone.setBackgroundColor(COLOR_CORRECT)
-            increaseScore(playerZone, colorText)
+            increaseScore(playerZone, equationText)
         } else {
             playerZone.setBackgroundColor(COLOR_INCORRECT)
-            decreaseScore(playerZone, colorText)
+            decreaseScore(playerZone, equationText)
         }
 
         disablePlayerZones()
     }
 
-    private fun increaseScore(playerZone: LinearLayout, colorText: TextView) {
+    private fun increaseScore(playerZone: LinearLayout, equationText: TextView) {
         when (playerZone.id) {
             R.id.player1_zone -> GameManager.playerOneScore++
             R.id.player2_zone -> GameManager.playerTwoScore++
         }
-        colorText.setTextColor(Color.BLACK)
-        colorText.text = "AWESOME JOB!"
+        equationText.text = "AWESOME JOB!"
         updateScoreText()
     }
 
-    private fun decreaseScore(playerZone: LinearLayout, colorText: TextView) {
+    private fun decreaseScore(playerZone: LinearLayout, equationText: TextView) {
         when (playerZone.id) {
             R.id.player1_zone -> GameManager.playerOneScore--
             R.id.player2_zone -> GameManager.playerTwoScore--
         }
-        colorText.setTextColor(Color.BLACK)
-        colorText.text = "BOO! YOU SUCK!"
+        equationText.text = "BOO! YOU SUCK!"
         updateScoreText()
     }
 
@@ -212,8 +184,8 @@ class ColorsGame : AppCompatActivity() {
             //Delay for players to check results of last round
             GlobalScope.launch(Dispatchers.Main) {
                 delay(GameManager.gameDelayTime)
-                colorTimer.cancel()
-                colorTimer.onFinish()
+                equationTimer.cancel()
+                equationTimer.onFinish()
             }
         }
     }
