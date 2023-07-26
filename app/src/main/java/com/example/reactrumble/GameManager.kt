@@ -3,6 +3,10 @@ package com.example.reactrumble
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 class GameManager private constructor() {
@@ -32,6 +36,11 @@ class GameManager private constructor() {
          * If game is not over, we swtich to a random game.
          */
         fun nextGame(context: Context) {
+            //Delay for players to check results of last round
+            GlobalScope.launch(Dispatchers.Main) {
+                delay(gameDelayTime)
+            }
+
             if (miniGamesPlayedCount >= maxMiniGamesPerMatch) {
                 gameOver(context)
             } else {

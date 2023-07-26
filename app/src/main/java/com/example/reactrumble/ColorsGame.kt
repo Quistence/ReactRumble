@@ -110,10 +110,6 @@ class ColorsGame : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                //Delay for players to check results of last round
-                GlobalScope.launch(Dispatchers.Main) {
-                    delay(GameManager.gameDelayTime)
-                }
                 //Call Next Game or Game Over Screen
                 GameManager.nextGame(this@ColorsGame)
             }
