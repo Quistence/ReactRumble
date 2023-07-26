@@ -1,7 +1,9 @@
 package com.example.reactrumble.controllers
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import androidx.appcompat.app.AppCompatActivity
 import com.example.reactrumble.custompreferences.GamePreferences
 import com.example.reactrumble.minigames.ColorsGame
@@ -12,6 +14,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
+
 
 class GameManager private constructor() {
 
@@ -53,9 +56,11 @@ class GameManager private constructor() {
                     index = Random.nextInt(gameList.size)
                 } while(index == lastGameIndex && gameList.size > 1) //Ensures we don't get same game twice
                 val intent = Intent(context, gameList[index])
+                intent.addFlags(FLAG_ACTIVITY_CLEAR_TASK)
                 lastGameIndex = index
                 miniGamesPlayedCount++
                 context.startActivity(intent)
+                (context as Activity?)?.finish()
             }
 
         }
