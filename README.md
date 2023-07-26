@@ -41,15 +41,41 @@
 
 ## Sources Used
 
-1) General help with Kotlin
+### 1) General help with Kotlin
 - “Stack Overflow - Where Developers Learn, Share, & Build Careers,” Stack Overflow, 2019. http://stackoverflow.com
-* https://stackoverflow.com/questions/13272694/android-change-the-app-name-and-logo
-* https://stackoverflow.com/questions/6204972/override-dialog-onbackpressed
+<br />
+- “Kotlin docs | Kotlin,” Kotlin Help. https://kotlinlang.org/docs/home.html
+ <br />
+- “Android Developers,” Android Developers, 2018. https://developer.android.com/
+<br /> <br />
+* Changing the app name and logo: https://stackoverflow.com/questions/13272694/android-change-the-app-name-and-logo
+* Handling Back button Press: https://stackoverflow.com/questions/6204972/override-dialog-onbackpressed
+* Adding Null Safety: https://kotlinlang.org/docs/null-safety.html
+* For Divinding Layouts based on Guidelines: https://developer.android.com/reference/androidx/constraintlayout/widget/Guideline
 
-2) For generating some Layout XMLs quickly and spacing them out well:
+### 2) For generating some Layout XMLs quickly and spacing them out well:
 - OpenAI, “ChatGPT,” chat.openai.com, 2023. https://chat.openai.com/  
+* math_minigame.xml 's LinearLayout was generated but ChatGPT but modified for our use. The other two minigames use the same layout as well
 
-3) For Using Images of country flags (Open Source)
+### 3) For working with Countdown Timers in Kotlin
+* https://medium.com/@olajhidey/working-with-countdown-timer-in-android-studio-using-kotlin-39fd7826e205
+* Example:
+```
+equationTimer = object : CountDownTimer(MAX_GAME_TIME, GameManager.gameDelayTime) {
+    override fun onTick(millisUntilFinished: Long) {
+        if (!isGamePaused) {
+            /*     Other Code      */
+            generateEquation()
+        }
+    }
+    override fun onFinish() {
+        //Call Next Game or Game Over Screen
+        GameManager.nextGame(this@MathGame)
+    }
+}
+```
+
+### 4) For Using Images of country flags (Open Source)
 - “Flagpack,” flagpack.xyz. https://flagpack.xyz/
 
 ## Acknowledgments
