@@ -52,7 +52,7 @@ class GameManager private constructor() {
          * If gameOver is called, we move to the gameOver screen.
          */
         fun gameOver(context: Context) {
-            val p1Win = playerOneScore > playerTwoScore
+            val p1Win = playerOneScore - playerTwoScore
             miniGamesPlayedCount = 0
             val intent = Intent(context, GameOverActivity::class.java)
             intent.putExtra("p1", playerOneScore)
