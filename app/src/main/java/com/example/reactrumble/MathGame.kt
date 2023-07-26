@@ -26,7 +26,6 @@ class MathGame : AppCompatActivity() {
 
     private var tapCount: Int = 0
     private var isGamePaused: Boolean = false
-    private var isEquationTapped = false
 
     companion object {
         //Can be configured from GameEngine
@@ -99,26 +98,29 @@ class MathGame : AppCompatActivity() {
         val correctResult = if (operator == "+") number1 + number2 else number1 - number2
 
         val isCorrectEquation = Random.nextBoolean()
-        val result = if (isCorrectEquation) correctResult else correctResult + Random.nextInt(-5, 5)
+
+        var incorrectResultOffset = Random.nextInt(-5, 5)
+        while (incorrectResultOffset == 0) {
+            // Generate a non-zero offset to ensure incorrect equations have different results
+            incorrectResultOffset = Random.nextInt(-5, 5)
+        }
+        val result = if (isCorrectEquation) correctResult else correctResult + incorrectResultOffset
 
         equationTextP1.text = "$number1 $operator $number2 = $result"
         equationTextP2.text = "$number1 $operator $number2 = $result"
 
         player1Zone.setOnClickListener {
-            handleTap(isCorrectEquation && result == correctResult, player1Zone, equationTextP1)
+            handleTap(isCorrectEquation, player1Zone, equationTextP1)
             checkGameOver(player1Zone, player2Zone)
         }
 
         player2Zone.setOnClickListener {
-            handleTap(isCorrectEquation && result == correctResult, player2Zone, equationTextP2)
+            handleTap(isCorrectEquation, player2Zone, equationTextP2)
             checkGameOver(player1Zone, player2Zone)
         }
     }
 
     private fun handleTap(isCorrect: Boolean, playerZone: LinearLayout, equationText: TextView) {
-        if (!isEquationTapped) {
-            isEquationTapped = true // Set the flag to true to prevent multiple taps
-
             if (isCorrect) {
                 playerZone.setBackgroundColor(COLOR_CORRECT)
                 increaseScore(playerZone, equationText)
@@ -128,7 +130,6 @@ class MathGame : AppCompatActivity() {
             }
 
             disablePlayerZones()
-        }
     }
 
     private fun increaseScore(playerZone: LinearLayout, equationText: TextView) {
@@ -173,8 +174,6 @@ class MathGame : AppCompatActivity() {
             player1Zone.setBackgroundColor(COLOR_DEFAULT)
             player2Zone.isEnabled = true
             player2Zone.setBackgroundColor(COLOR_DEFAULT)
-
-            isEquationTapped = false // Reset the flag
         }
     }
 
