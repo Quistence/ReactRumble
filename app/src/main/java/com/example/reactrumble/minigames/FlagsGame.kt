@@ -35,7 +35,7 @@ class FlagsGame : AppCompatActivity() {
     companion object {
         //Can be configured from GameEngine
         private const val MAX_GAME_TIME = 60000L
-        private val MAX_GAME_TAPS = GameManager.maxRoundsPerMiniGame
+        private var maxGameTaps = GameManager.maxRoundsPerMiniGame
         private val COLOR_CORRECT = Color.parseColor("#C947D86B")
         private val COLOR_INCORRECT = Color.parseColor("#D34A4A")
         private val COLOR_DEFAULT = Color.parseColor("#A9A9C8")
@@ -58,7 +58,7 @@ class FlagsGame : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         preferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
-
+        maxGameTaps = GameManager.maxRoundsPerMiniGame
         if(preferences.getBoolean("is_dark_mode", false))
             setContentView(R.layout.dark_flags_minigame)
         else
@@ -212,7 +212,7 @@ class FlagsGame : AppCompatActivity() {
     }
 
     private fun checkGameOver(player1Zone: LinearLayout, player2Zone: LinearLayout) {
-        if (++tapCount >= MAX_GAME_TAPS) {
+        if (++tapCount >= maxGameTaps) {
             player1Zone.isClickable = false
             player2Zone.isClickable = false
             //Delay for players to check results of last round
