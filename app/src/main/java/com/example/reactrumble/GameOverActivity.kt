@@ -14,11 +14,7 @@ class GameOverActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         preferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
-
-        if(preferences.getBoolean("is_dark_mode", false))
-            setContentView(R.layout.dark_activity_game_over)
-        else
-            setContentView(R.layout.activity_game_over)
+        setContentView(R.layout.activity_game_over)
 
         val p1Score = intent.getIntExtra("p1", 0)
         val p2Score = intent.getIntExtra("p2", 0)

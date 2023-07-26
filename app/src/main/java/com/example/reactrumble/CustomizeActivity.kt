@@ -4,13 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.appcompat.widget.SwitchCompat
 
 class CustomizeActivity : AppCompatActivity() {
 	private lateinit var noOfRoundSpinner: AppCompatSpinner
-	private lateinit var randomizeSwitch: SwitchCompat
+	private lateinit var darkModeSwitch: SwitchCompat
 	private lateinit var maxMiniGamesPerMatchSpinner: AppCompatSpinner
 	private lateinit var btnSavePreferences: AppCompatButton
 	private lateinit var gamePreferences: GamePreferences
@@ -20,7 +21,7 @@ class CustomizeActivity : AppCompatActivity() {
 
 
 		noOfRoundSpinner = findViewById(R.id.noOfRoundSpinner)
-		randomizeSwitch = findViewById(R.id.randomizeSwitch)
+		darkModeSwitch = findViewById(R.id.darkModeSwitch)
 		maxMiniGamesPerMatchSpinner = findViewById(R.id.maxMiniGamesPerMatchSpinner)
 		btnSavePreferences = findViewById(R.id.btnSavePreferences)
 		gamePreferences = GamePreferences.getInstance(applicationContext)
@@ -35,19 +36,30 @@ class CustomizeActivity : AppCompatActivity() {
 			maxMiniGamesPerMatchSpinner.adapter = adapter
 		}
 
+
 		btnSavePreferences.setOnClickListener {
 			val selectedNoOfRounds = (noOfRoundSpinner.selectedItem as String).toInt()
 			gamePreferences.saveNoOFRounds(selectedNoOfRounds)
-			val isRandomized = randomizeSwitch.isChecked
-			gamePreferences.saveGameRandomization(isRandomized)
 			val selectedMaxMiniGamesPerMatch =
 				(maxMiniGamesPerMatchSpinner.selectedItem as String).toInt()
 			gamePreferences.saveMaxMiniGamesPerMatch(selectedMaxMiniGamesPerMatch)
 
 			Toast.makeText(this@CustomizeActivity, "Customization Saved", Toast.LENGTH_SHORT).show()
 		}
+
+		darkModeSwitch.setOnClickListener {
+			val isDarkMode = darkModeSwitch.isChecked
+			gamePreferences.saveDarkMode(isDarkMode)
+			if(isDarkMode) {
+				AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+			}
+			else{
+				AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+			}
+		}
+
 		val savedNoOfRounds = gamePreferences.getNoOFRounds()
-		val savedRandomized = gamePreferences.getGameRandomization()
+		val savedDarkMode = gamePreferences.getDarkMode()
 		val savedMaxMiniGamesPerMatch = gamePreferences.getMaxMiniGamesPerMatch()
 
 		noOfRoundSpinner.setSelection(getIndex(noOfRoundSpinner, savedNoOfRounds.toString()))
@@ -58,8 +70,8 @@ class CustomizeActivity : AppCompatActivity() {
 			)
 		)
 
-		if (savedRandomized != null) {
-			randomizeSwitch.isChecked = savedRandomized
+		if (savedDarkMode != null) {
+			darkModeSwitch.isChecked = savedDarkMode
 		}
 	}
 

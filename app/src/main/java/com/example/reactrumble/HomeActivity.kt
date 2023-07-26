@@ -15,11 +15,7 @@ class HomeActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 
 		preferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
-
-		//if(preferences.getBoolean("is_dark_mode", false))
-			//setContentView(R.layout.dark_activity_home)
-		//else
-			setContentView(R.layout.activity_home)
+		setContentView(R.layout.activity_home)
 
 		val customizeButton: Button = findViewById(R.id.customizeButton)
 
@@ -30,11 +26,6 @@ class HomeActivity : AppCompatActivity() {
 
 	override fun onResume() {
 		super.onResume()
-
-		if(preferences.getBoolean("is_dark_mode", false))
-			setContentView(R.layout.dark_activity_home)
-		else
-			setContentView(R.layout.activity_home)
 
 		val customizeButton: Button = findViewById(R.id.customizeButton)
 		val startGame: Button = findViewById(R.id.quickStartButton)

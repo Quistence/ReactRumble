@@ -38,13 +38,10 @@ class MathGame : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         preferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
 
-        super.onCreate(savedInstanceState)
-        if(preferences.getBoolean("is_dark_mode", false))
-            setContentView(R.layout.dark_math_minigame)
-        else
-            setContentView(R.layout.math_minigame)
+        setContentView(R.layout.math_minigame)
         startGame()
     }
 

@@ -57,10 +57,7 @@ class FlagsGame : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         preferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
 
-        if(preferences.getBoolean("is_dark_mode", false))
-            setContentView(R.layout.dark_flags_minigame)
-        else
-            setContentView(R.layout.flags_minigame)
+        setContentView(R.layout.flags_minigame)
         startGame()
     }
 

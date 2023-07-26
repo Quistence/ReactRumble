@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="30dp"
+    style="@style/ScreenBackground"
     tools:context=".CustomizeActivity">
 
     <!-- Game Icon -->
@@ -35,14 +35,16 @@
                 android:id="@+id/customizeGameTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/ScreenBackground"
                 android:text="Customize Game"
-                android:textSize="30sp" />
+                android:textSize="30sp"/>
 
             <TextView
                 android:id="@+id/selectNoOfRoundsTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40sp"
+                style="@style/ScreenBackground"
                 android:text="No. Of Rounds Per Mini-Game"
                 android:textSize="20sp" />
 
@@ -54,11 +56,11 @@
                 android:scrollbarSize="30dp" />
 
             <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/randomizeSwitch"
+                android:id="@+id/darkModeSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:text="Randomize Games"
+                android:text="Dark Mode"
                 android:textSize="20sp"
                 android:thumb="@drawable/switch_thumb"
                 app:switchPadding="10dp"
@@ -69,6 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40sp"
+                style="@style/ScreenBackground"
                 android:text="Max Mini-Games Per Match"
                 android:textSize="20sp" />
 
