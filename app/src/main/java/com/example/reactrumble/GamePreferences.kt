@@ -49,4 +49,12 @@ class GamePreferences private constructor(context: Context){
 	fun getGameRandomization(): Boolean? {
 		return sharedPreferences?.getBoolean("is_randomized", false)
 	}
+
+	fun saveGameSpeed(value: Long){
+		sharedPreferences?.edit()?.putLong("game_speed", value)?.apply()
+	}
+
+	fun getGameSpeed(): Long? {
+		return sharedPreferences?.getLong("game_speed", 2000L)
+	}
 }

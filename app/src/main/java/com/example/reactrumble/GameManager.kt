@@ -13,16 +13,15 @@ class GameManager private constructor() {
         var playerTwoScore: Int = 0
         var maxRoundsPerMiniGame: Int = 3 //Get From Preferences, default is 3
         var maxMiniGamesPerMatch: Int = 3 //Get From Preferences, default is 3
+        var gameDelayTime = 2000L //Get From Preferences, default is medium (2) seconds
         var lastGameIndex: Int = -1
         var miniGamesPlayedCount: Int = 0
-        var DELAY_TIME = 2000L
         private lateinit var list: Array<Class<out AppCompatActivity>>
 
         fun startGame(context: Context, list: Array<Class<out AppCompatActivity>>) {
-            maxRoundsPerMiniGame = GamePreferences.getInstance(context).getNoOFRounds() ?: maxRoundsPerMiniGame
-            maxMiniGamesPerMatch = GamePreferences.getInstance(context).getMaxMiniGamesPerMatch() ?: maxMiniGamesPerMatch
             maxRoundsPerMiniGame = GamePreferences.getInstance(context).getNoOFRounds() !!
             maxMiniGamesPerMatch = GamePreferences.getInstance(context).getMaxMiniGamesPerMatch() !!
+            gameDelayTime = GamePreferences.getInstance(context).getGameSpeed() !!
             this.list = list
             playerOneScore = 0
             playerTwoScore = 0
@@ -45,7 +44,6 @@ class GameManager private constructor() {
                 miniGamesPlayedCount++
                 context.startActivity(intent)
             }
-
         }
 
         /**
@@ -60,8 +58,6 @@ class GameManager private constructor() {
             intent.putExtra("winner", p1Win)
             context.startActivity(intent)
         }
-
     }
-
 
 }

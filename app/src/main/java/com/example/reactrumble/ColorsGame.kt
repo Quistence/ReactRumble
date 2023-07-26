@@ -32,7 +32,6 @@ class ColorsGame : AppCompatActivity() {
     companion object {
         //Can be configured from GameEngine
         private const val MAX_GAME_TIME = 60000L
-        private const val DELAY_TIME = 900L
         private val MAX_GAME_TAPS = GameManager.maxRoundsPerMiniGame
         private val COLOR_CORRECT = Color.parseColor("#C947D86B")
         private val COLOR_INCORRECT = Color.parseColor("#D34A4A")
@@ -69,7 +68,7 @@ class ColorsGame : AppCompatActivity() {
         updateScoreText()
 
         GlobalScope.launch(Dispatchers.Main) {
-            delay(DELAY_TIME)
+            delay(GameManager.gameDelayTime)
             countdownTextP1.text = ""
             countdownTextP2.text = ""
             startColorsGeneration()
@@ -79,7 +78,7 @@ class ColorsGame : AppCompatActivity() {
     // This method uses a bunch of helper methods to generate correct and incorrect (by chance) colors and displays
     // them on the screen
     private fun startColorsGeneration() {
-        colorTimer = object : CountDownTimer(MAX_GAME_TIME, DELAY_TIME) {
+        colorTimer = object : CountDownTimer(MAX_GAME_TIME, GameManager.gameDelayTime) {
             override fun onTick(millisUntilFinished: Long) {
 
                 if (!isGamePaused) {
@@ -90,6 +89,12 @@ class ColorsGame : AppCompatActivity() {
 
                     val colorName = getRandomColorName()
                     val colorValue = getRandomColor()
+
+                    player1Zone.isEnabled = true
+                    player1Zone.setBackgroundColor(COLOR_DEFAULT)
+                    player2Zone.isEnabled = true
+                    player2Zone.setBackgroundColor(COLOR_DEFAULT)
+
                     displayColorText(colorName, colorValue)
 
                     player1Zone.setOnClickListener {
@@ -107,7 +112,7 @@ class ColorsGame : AppCompatActivity() {
             override fun onFinish() {
                 //Delay for players to check results of last round
                 GlobalScope.launch(Dispatchers.Main) {
-                    delay(DELAY_TIME)
+                    delay(GameManager.gameDelayTime)
                 }
                 //Call Next Game or Game Over Screen
                 GameManager.nextGame(this@ColorsGame)
@@ -199,16 +204,8 @@ class ColorsGame : AppCompatActivity() {
         player2Zone.isEnabled = false
         isGamePaused = true
         GlobalScope.launch(Dispatchers.Main) {
-            delay(DELAY_TIME)
+            delay(GameManager.gameDelayTime)
             isGamePaused = false
-
-            //For Touch Zones activation to be synced with colors generation resumption
-            //delay(700)
-
-            player1Zone.isEnabled = true
-            player1Zone.setBackgroundColor(COLOR_DEFAULT)
-            player2Zone.isEnabled = true
-            player2Zone.setBackgroundColor(COLOR_DEFAULT)
         }
     }
 
@@ -218,7 +215,7 @@ class ColorsGame : AppCompatActivity() {
             player2Zone.isClickable = false
             //Delay for players to check results of last round
             GlobalScope.launch(Dispatchers.Main) {
-                delay(DELAY_TIME)
+                delay(GameManager.gameDelayTime)
                 colorTimer.cancel()
                 colorTimer.onFinish()
             }
