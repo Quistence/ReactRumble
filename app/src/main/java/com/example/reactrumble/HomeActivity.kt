@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.reactrumble.controllers.GameManager
 import com.example.reactrumble.custompreferences.CustomizeActivity
 import com.example.reactrumble.minigames.ColorsGame
@@ -16,15 +17,20 @@ import com.example.reactrumble.minigames.MathGame
 class HomeActivity : AppCompatActivity() {
 	private val PREFS_FILENAME = "customizationsPreferences"
 	private lateinit var preferences: SharedPreferences
+	private lateinit var gamePreferences: GamePreferences
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
 		preferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
+		gamePreferences = GamePreferences.getInstance(applicationContext)
+		if(gamePreferences.getDarkMode()==true) {
+			AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+		}
+		else{
+			AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+		}
 
-		//if(preferences.getBoolean("is_dark_mode", false))
-			//setContentView(R.layout.dark_activity_home)
-		//else
-			setContentView(R.layout.activity_home)
+		setContentView(R.layout.activity_home)
 
 		val customizeButton: Button = findViewById(R.id.customizeButton)
 
@@ -35,11 +41,6 @@ class HomeActivity : AppCompatActivity() {
 
 	override fun onResume() {
 		super.onResume()
-
-		if(preferences.getBoolean("is_dark_mode", false))
-			setContentView(R.layout.dark_activity_home)
-		else
-			setContentView(R.layout.activity_home)
 
 		val customizeButton: Button = findViewById(R.id.customizeButton)
 		val startGame: Button = findViewById(R.id.quickStartButton)

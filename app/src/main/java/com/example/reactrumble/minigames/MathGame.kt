@@ -43,10 +43,9 @@ class MathGame : AppCompatActivity() {
         preferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
         maxGameTaps = GameManager.maxRoundsPerMiniGame
         super.onCreate(savedInstanceState)
-        if(preferences.getBoolean("is_dark_mode", false))
-            setContentView(R.layout.dark_math_minigame)
-        else
-            setContentView(R.layout.math_minigame)
+        preferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
+
+        setContentView(R.layout.math_minigame)
         startGame()
     }
 

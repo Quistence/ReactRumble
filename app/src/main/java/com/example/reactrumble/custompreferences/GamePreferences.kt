@@ -42,12 +42,12 @@ class GamePreferences private constructor(context: Context){
 		return sharedPreferences?.getInt("max_mini_games_per_match", 3)
 	}
 
-	fun saveGameRandomization(value: Boolean) {
-		sharedPreferences?.edit()?.putBoolean("is_randomized", value)?.apply()
+	fun saveDarkMode(value: Boolean) {
+		sharedPreferences?.edit()?.putBoolean("is_dark_mode", value)?.apply()
 	}
 
-	fun getGameRandomization(): Boolean? {
-		return sharedPreferences?.getBoolean("is_randomized", false)
+	fun getDarkMode(): Boolean? {
+		return sharedPreferences?.getBoolean("is_dark_mode", false)
 	}
 
 	fun saveGameSpeed(value: Long){

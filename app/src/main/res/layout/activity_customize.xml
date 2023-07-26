@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="30dp"
     tools:context=".custompreferences.CustomizeActivity">
+    style="@style/ScreenBackground"
 
     <!-- Game Icon -->
     <ImageView
@@ -35,14 +35,16 @@
                 android:id="@+id/customizeGameTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/TextColor"
                 android:text="Customize Game"
-                android:textSize="30sp" />
+                android:textSize="30sp"/>
 
             <TextView
                 android:id="@+id/selectNoOfRoundsTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40sp"
+                style="@style/TextColor"
                 android:text="No. Of Rounds Per Mini-Game"
                 android:textSize="20sp" />
 
@@ -51,13 +53,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
+                android:background="@color/light_grey"
                 android:scrollbarSize="30dp" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/darkModeSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Dark Mode"
+                android:textSize="20sp"
+                android:thumb="@drawable/switch_thumb"
+                app:switchPadding="10dp"
+                app:track="@drawable/switch_track" />
 
             <TextView
                 android:id="@+id/maxMiniGamesPerMatchTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40sp"
+                style="@style/TextColor"
                 android:text="Max Mini-Games Per Match"
                 android:textSize="20sp" />
 
@@ -65,6 +80,7 @@
                 android:id="@+id/maxMiniGamesPerMatchSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/light_grey"
                 android:padding="15dp"
                 android:scrollbarSize="30dp" />
 
@@ -152,6 +168,7 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="50dp"
                 android:background="@drawable/background_green"
+                android:textColor="@color/black"
                 android:text="Save" />
         </LinearLayout>
     </ScrollView>
