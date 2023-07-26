@@ -53,18 +53,6 @@
                 android:padding="15dp"
                 android:scrollbarSize="30dp" />
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/randomizeSwitch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:text="Randomize Games"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:thumb="@drawable/switch_thumb"
-                app:switchPadding="10dp"
-                app:track="@drawable/switch_track" />
-
             <TextView
                 android:id="@+id/maxMiniGamesPerMatchTextView"
                 android:layout_width="wrap_content"
@@ -79,6 +67,83 @@
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:scrollbarSize="30dp" />
+
+
+            <TextView
+                android:id="@+id/gameSpeedTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Game Speed (Time for Reactions)"
+                android:textSize="20sp"
+                android:layout_marginTop="40sp"/>
+
+            <RadioGroup
+                android:id="@+id/gameSpeedRadioButtonGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/crazyRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/radio_button_selector"
+                    android:button="@android:color/transparent"
+                    android:checked="true"
+                    android:elevation="4dp"
+                    android:gravity="center"
+                    android:text="CRAZY!" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/shortRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/radio_button_selector"
+                    android:button="@android:color/transparent"
+                    android:elevation="4dp"
+                    android:gravity="center"
+                    android:text="SHORT" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/mediumRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/radio_button_selector"
+                    android:button="@android:color/transparent"
+                    android:checked="true"
+                    android:elevation="4dp"
+                    android:gravity="center"
+                    android:text="MEDIUM" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/longRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/radio_button_selector"
+                    android:button="@android:color/transparent"
+                    android:elevation="4dp"
+                    android:gravity="center"
+                    android:text="LONG" />
+            </RadioGroup>
+
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/randomizeSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Randomize Games"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:thumb="@drawable/switch_thumb"
+                app:switchPadding="10dp"
+                app:track="@drawable/switch_track" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnSavePreferences"

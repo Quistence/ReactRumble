@@ -30,7 +30,6 @@ class MathGame : AppCompatActivity() {
     companion object {
         //Can be configured from GameEngine
         private const val MAX_GAME_TIME = 60000L
-        private const val DELAY_TIME = 2000L
         private val MAX_GAME_TAPS = GameManager.maxRoundsPerMiniGame
         private val COLOR_CORRECT = Color.parseColor("#C947D86B")
         private val COLOR_INCORRECT = Color.parseColor("#D34A4A")
@@ -63,7 +62,7 @@ class MathGame : AppCompatActivity() {
         updateScoreText()
 
         GlobalScope.launch(Dispatchers.Main) {
-            delay(DELAY_TIME)
+            delay(GameManager.gameDelayTime)
             countdownTextP1.text = ""
             countdownTextP2.text = ""
             startEquationGeneration()
@@ -71,9 +70,15 @@ class MathGame : AppCompatActivity() {
     }
 
     private fun startEquationGeneration() {
-        equationTimer = object : CountDownTimer(MAX_GAME_TIME, DELAY_TIME) {
+        equationTimer = object : CountDownTimer(MAX_GAME_TIME, GameManager.gameDelayTime) {
             override fun onTick(millisUntilFinished: Long) {
                 if (!isGamePaused) {
+                    val player1Zone: LinearLayout = findViewById(R.id.player1_zone)
+                    val player2Zone: LinearLayout = findViewById(R.id.player2_zone)
+                    player1Zone.isEnabled = true
+                    player1Zone.setBackgroundColor(COLOR_DEFAULT)
+                    player2Zone.isEnabled = true
+                    player2Zone.setBackgroundColor(COLOR_DEFAULT)
                     generateEquation()
                 }
             }
@@ -121,15 +126,15 @@ class MathGame : AppCompatActivity() {
     }
 
     private fun handleTap(isCorrect: Boolean, playerZone: LinearLayout, equationText: TextView) {
-            if (isCorrect) {
-                playerZone.setBackgroundColor(COLOR_CORRECT)
-                increaseScore(playerZone, equationText)
-            } else {
-                playerZone.setBackgroundColor(COLOR_INCORRECT)
-                decreaseScore(playerZone, equationText)
-            }
+        if (isCorrect) {
+            playerZone.setBackgroundColor(COLOR_CORRECT)
+            increaseScore(playerZone, equationText)
+        } else {
+            playerZone.setBackgroundColor(COLOR_INCORRECT)
+            decreaseScore(playerZone, equationText)
+        }
 
-            disablePlayerZones()
+        disablePlayerZones()
     }
 
     private fun increaseScore(playerZone: LinearLayout, equationText: TextView) {
@@ -164,16 +169,8 @@ class MathGame : AppCompatActivity() {
         player2Zone.isEnabled = false
         isGamePaused = true
         GlobalScope.launch(Dispatchers.Main) {
-            delay(DELAY_TIME)
+            delay(GameManager.gameDelayTime)
             isGamePaused = false
-
-            //For Touch Zones activation to be synced with equation generation resumption
-            delay(700)
-
-            player1Zone.isEnabled = true
-            player1Zone.setBackgroundColor(COLOR_DEFAULT)
-            player2Zone.isEnabled = true
-            player2Zone.setBackgroundColor(COLOR_DEFAULT)
         }
     }
 
@@ -183,7 +180,7 @@ class MathGame : AppCompatActivity() {
             player2Zone.isClickable = false
             //Delay for players to check results of last round
             GlobalScope.launch(Dispatchers.Main) {
-                delay(DELAY_TIME)
+                delay(GameManager.gameDelayTime)
                 equationTimer.cancel()
                 equationTimer.onFinish()
             }

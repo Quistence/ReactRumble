@@ -32,7 +32,6 @@ class FlagsGame : AppCompatActivity() {
     companion object {
         //Can be configured from GameEngine
         private const val MAX_GAME_TIME = 60000L
-        private const val DELAY_TIME = 1000L
         private val MAX_GAME_TAPS = GameManager.maxRoundsPerMiniGame
         private val COLOR_CORRECT = Color.parseColor("#C947D86B")
         private val COLOR_INCORRECT = Color.parseColor("#D34A4A")
@@ -79,7 +78,7 @@ class FlagsGame : AppCompatActivity() {
         updateScoreText()
 
         GlobalScope.launch(Dispatchers.Main) {
-            delay(DELAY_TIME)
+            delay(GameManager.gameDelayTime)
             countdownTextP1.text = ""
             countdownTextP2.text = ""
             startFlagGeneration()
@@ -87,9 +86,15 @@ class FlagsGame : AppCompatActivity() {
     }
 
     private fun startFlagGeneration() {
-        flagTimer = object : CountDownTimer(MAX_GAME_TIME, DELAY_TIME) {
+        flagTimer = object : CountDownTimer(MAX_GAME_TIME, GameManager.gameDelayTime) {
             override fun onTick(millisUntilFinished: Long) {
                 if (!isGamePaused) {
+                    val player1Zone: LinearLayout = findViewById(R.id.player1_zone)
+                    val player2Zone: LinearLayout = findViewById(R.id.player2_zone)
+                    player1Zone.isEnabled = true
+                    player1Zone.setBackgroundColor(COLOR_DEFAULT)
+                    player2Zone.isEnabled = true
+                    player2Zone.setBackgroundColor(COLOR_DEFAULT)
                     displayRandomFlag()
                 }
             }
@@ -97,7 +102,7 @@ class FlagsGame : AppCompatActivity() {
             override fun onFinish() {
                 //Delay for players to check results of last round
                 GlobalScope.launch(Dispatchers.Main) {
-                    delay(DELAY_TIME)
+                    delay(GameManager.gameDelayTime)
                 }
                 //Call Next Game or Game Over Screen
                 GameManager.nextGame(this@FlagsGame)
@@ -202,16 +207,8 @@ class FlagsGame : AppCompatActivity() {
         player2Zone.isEnabled = false
         isGamePaused = true
         GlobalScope.launch(Dispatchers.Main) {
-            delay(DELAY_TIME)
+            delay(GameManager.gameDelayTime)
             isGamePaused = false
-
-            //For Touch Zones activation to be synced with flags generation resumption
-            //delay(500)
-
-            player1Zone.isEnabled = true
-            player1Zone.setBackgroundColor(COLOR_DEFAULT)
-            player2Zone.isEnabled = true
-            player2Zone.setBackgroundColor(COLOR_DEFAULT)
         }
     }
 
@@ -221,7 +218,7 @@ class FlagsGame : AppCompatActivity() {
             player2Zone.isClickable = false
             //Delay for players to check results of last round
             GlobalScope.launch(Dispatchers.Main) {
-                delay(DELAY_TIME)
+                delay(GameManager.gameDelayTime)
                 flagTimer.cancel()
                 flagTimer.onFinish()
             }

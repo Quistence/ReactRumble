@@ -13,16 +13,15 @@ class GameManager private constructor() {
         var playerTwoScore: Int = 0
         var maxRoundsPerMiniGame: Int = 3 //Get From Preferences, default is 3
         var maxMiniGamesPerMatch: Int = 3 //Get From Preferences, default is 3
+        var gameDelayTime = 2000L //Get From Preferences, default is medium (2) seconds
         var lastGameIndex: Int = -1
         var miniGamesPlayedCount: Int = 0
-        var DELAY_TIME = 2000L
         private var gameList: Array<Class<out AppCompatActivity>> = arrayOf(MathGame::class.java, FlagsGame::class.java, ColorsGame::class.java)
 
         fun startGame(context: Context, list: Array<Class<out AppCompatActivity>> = gameList) {
-            maxRoundsPerMiniGame = GamePreferences.getInstance(context).getNoOFRounds() ?: maxRoundsPerMiniGame
-            maxMiniGamesPerMatch = GamePreferences.getInstance(context).getMaxMiniGamesPerMatch() ?: maxMiniGamesPerMatch
             maxRoundsPerMiniGame = GamePreferences.getInstance(context).getNoOFRounds() !!
             maxMiniGamesPerMatch = GamePreferences.getInstance(context).getMaxMiniGamesPerMatch() !!
+            gameDelayTime = GamePreferences.getInstance(context).getGameSpeed() !!
             gameList = list
             playerOneScore = 0
             playerTwoScore = 0
