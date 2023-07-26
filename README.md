@@ -49,8 +49,11 @@
 - “Android Developers,” Android Developers, 2018. https://developer.android.com/
 <br /> <br />
 * Changing the app name and logo: https://stackoverflow.com/questions/13272694/android-change-the-app-name-and-logo
+<br />
 * Handling Back button Press: https://stackoverflow.com/questions/6204972/override-dialog-onbackpressed
+<br />
 * Adding Null Safety: https://kotlinlang.org/docs/null-safety.html
+<br />
 * For Divinding Layouts based on Guidelines: https://developer.android.com/reference/androidx/constraintlayout/widget/Guideline
 
 ### 2) For generating some Layout XMLs quickly and spacing them out well:
