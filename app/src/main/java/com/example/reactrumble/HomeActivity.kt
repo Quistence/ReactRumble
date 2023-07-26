@@ -7,14 +7,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatDelegate
 
 class HomeActivity : AppCompatActivity() {
-	private val PREFS_FILENAME = "customizationsPreferences"
-	private lateinit var preferences: SharedPreferences
+	private lateinit var gamePreferences: GamePreferences
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
-		preferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
+		gamePreferences = GamePreferences.getInstance(applicationContext)
+		if(gamePreferences.getDarkMode()==true) {
+			AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+		}
+		else{
+			AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+		}
+
 		setContentView(R.layout.activity_home)
 
 		val customizeButton: Button = findViewById(R.id.customizeButton)
