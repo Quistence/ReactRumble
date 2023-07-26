@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.reactrumble.controllers.GameManager
 import com.example.reactrumble.HomeActivity
 import com.example.reactrumble.R
+import com.example.reactrumble.custompreferences.GamePreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -25,6 +26,7 @@ class ColorsGame : AppCompatActivity() {
 
     private val PREFS_FILENAME = "customizationsPreferences"
     private lateinit var preferences: SharedPreferences
+    private lateinit var gamePreferences: GamePreferences
 
     private lateinit var colorTimer: CountDownTimer
 
@@ -43,6 +45,7 @@ class ColorsGame : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         preferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
+        gamePreferences = GamePreferences.getInstance(applicationContext)
         maxGameTaps = GameManager.maxRoundsPerMiniGame
         setContentView(R.layout.colors_minigame)
         startGame()
@@ -169,7 +172,10 @@ class ColorsGame : AppCompatActivity() {
             R.id.player1_zone -> GameManager.playerOneScore++
             R.id.player2_zone -> GameManager.playerTwoScore++
         }
-        colorText.setTextColor(Color.BLACK)
+        if(gamePreferences.getDarkMode()==true)
+            colorText.setTextColor(Color.WHITE)
+        else
+            colorText.setTextColor(Color.BLACK)
         colorText.text = "AWESOME JOB!"
         updateScoreText()
     }
@@ -179,7 +185,11 @@ class ColorsGame : AppCompatActivity() {
             R.id.player1_zone -> GameManager.playerOneScore--
             R.id.player2_zone -> GameManager.playerTwoScore--
         }
-        colorText.setTextColor(Color.BLACK)
+
+        if(gamePreferences.getDarkMode()==true)
+            colorText.setTextColor(Color.WHITE)
+        else
+            colorText.setTextColor(Color.BLACK)
         colorText.text = "BOO! YOU SUCK!"
         updateScoreText()
     }
