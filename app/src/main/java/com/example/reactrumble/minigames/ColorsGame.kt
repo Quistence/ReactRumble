@@ -44,11 +44,7 @@ class ColorsGame : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         preferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
         maxGameTaps = GameManager.maxRoundsPerMiniGame
-        if(preferences.getBoolean("is_dark_mode", false))
-            setContentView(R.layout.dark_colors_minigame)
-        else
-            setContentView(R.layout.colors_minigame)
-
+        setContentView(R.layout.colors_minigame)
         startGame()
     }
 
