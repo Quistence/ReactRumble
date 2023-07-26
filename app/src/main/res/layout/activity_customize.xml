@@ -60,6 +60,7 @@
                 android:layout_marginTop="40dp"
                 android:text="Randomize Games"
                 android:textSize="20sp"
+                android:textColor="@color/black"
                 android:thumb="@drawable/switch_thumb"
                 app:switchPadding="10dp"
                 app:track="@drawable/switch_track" />
