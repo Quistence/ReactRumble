@@ -16,14 +16,14 @@ class GameManager private constructor() {
         var lastGameIndex: Int = -1
         var miniGamesPlayedCount: Int = 0
         var DELAY_TIME = 2000L
-        private lateinit var list: Array<Class<out AppCompatActivity>>
+        private var gameList: Array<Class<out AppCompatActivity>> = arrayOf(MathGame::class.java, FlagsGame::class.java, ColorsGame::class.java)
 
-        fun startGame(context: Context, list: Array<Class<out AppCompatActivity>>) {
+        fun startGame(context: Context, list: Array<Class<out AppCompatActivity>> = gameList) {
             maxRoundsPerMiniGame = GamePreferences.getInstance(context).getNoOFRounds() ?: maxRoundsPerMiniGame
             maxMiniGamesPerMatch = GamePreferences.getInstance(context).getMaxMiniGamesPerMatch() ?: maxMiniGamesPerMatch
             maxRoundsPerMiniGame = GamePreferences.getInstance(context).getNoOFRounds() !!
             maxMiniGamesPerMatch = GamePreferences.getInstance(context).getMaxMiniGamesPerMatch() !!
-            this.list = list
+            gameList = list
             playerOneScore = 0
             playerTwoScore = 0
             nextGame(context)
@@ -38,9 +38,9 @@ class GameManager private constructor() {
             } else {
                 var index : Int
                 do {
-                    index = Random.nextInt(list.size)
-                } while(index == lastGameIndex && list.size > 1) //Ensures we don't get same game twice
-                val intent = Intent(context, list[index])
+                    index = Random.nextInt(gameList.size)
+                } while(index == lastGameIndex && gameList.size > 1) //Ensures we don't get same game twice
+                val intent = Intent(context, gameList[index])
                 lastGameIndex = index
                 miniGamesPlayedCount++
                 context.startActivity(intent)
@@ -52,12 +52,12 @@ class GameManager private constructor() {
          * If gameOver is called, we move to the gameOver screen.
          */
         fun gameOver(context: Context) {
-            val p1Win = playerOneScore - playerTwoScore
+            val win = playerOneScore - playerTwoScore
             miniGamesPlayedCount = 0
             val intent = Intent(context, GameOverActivity::class.java)
             intent.putExtra("p1", playerOneScore)
             intent.putExtra("p2", playerTwoScore)
-            intent.putExtra("winner", p1Win)
+            intent.putExtra("winner", win)
             context.startActivity(intent)
         }
 
