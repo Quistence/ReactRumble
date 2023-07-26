@@ -1,5 +1,6 @@
 package com.example.reactrumble
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -59,6 +60,7 @@ class CustomizeActivity : AppCompatActivity() {
 			gamePreferences.saveGameSpeed(gameSpeed)
 
 			Toast.makeText(this@CustomizeActivity, "Customization Saved", Toast.LENGTH_SHORT).show()
+			startActivity(Intent(this@CustomizeActivity, HomeActivity::class.java))
 		}
 		val savedNoOfRounds = gamePreferences.getNoOFRounds()
 		val savedRandomized = gamePreferences.getGameRandomization()
