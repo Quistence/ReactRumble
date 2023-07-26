@@ -32,7 +32,7 @@ class MathGame : AppCompatActivity() {
 
     companion object {
         //Can be configured from GameEngine
-        private const val MAX_GAME_TIME = 60000L
+        private const val MAX_GAME_TIME = 600000L
         private var maxGameTaps = GameManager.maxRoundsPerMiniGame
         private val COLOR_CORRECT = Color.parseColor("#C947D86B")
         private val COLOR_INCORRECT = Color.parseColor("#D34A4A")
@@ -190,10 +190,7 @@ class MathGame : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        // Navigate to HomeActivity when back button is pressed
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
-        finish()
+        GameManager.gameOver(this)
     }
 
 }
