@@ -33,7 +33,7 @@ class FlagsGame : AppCompatActivity() {
     private var isGamePaused: Boolean = false
 
     companion object {
-        //Can be configured from GameEngine
+        // Number of rounds taken from the Game Manager
         private const val MAX_GAME_TIME = 600000L
         private var maxGameTaps = GameManager.maxRoundsPerMiniGame
         private val COLOR_CORRECT = Color.parseColor("#C947D86B")
@@ -41,6 +41,7 @@ class FlagsGame : AppCompatActivity() {
         private val COLOR_DEFAULT = Color.parseColor("#A9A9C8")
     }
 
+    // List of flag images to be used for generation
     private val flags = listOf(
         R.drawable.flag_canada,
         R.drawable.flag_america,
@@ -48,6 +49,7 @@ class FlagsGame : AppCompatActivity() {
         R.drawable.flag_china
     )
 
+    // List of country names to be used for generation
     private val countryNames = listOf(
         "Canada",
         "America",
@@ -63,6 +65,8 @@ class FlagsGame : AppCompatActivity() {
         startGame()
     }
 
+    // This method is run to start the game, it displays the game instructions and then runs the
+    // startFlagGeneration() method
     private fun startGame() {
         val countdownTextP1: TextView = findViewById(R.id.countdownTextP1)
         val countdownTextP2: TextView = findViewById(R.id.countdownTextP2)
@@ -85,6 +89,7 @@ class FlagsGame : AppCompatActivity() {
         }
     }
 
+    // This method initializes the player touch zones and uses a helper method to display flags on the screen
     private fun startFlagGeneration() {
         flagTimer = object : CountDownTimer(MAX_GAME_TIME, GameManager.gameDelayTime) {
             override fun onTick(millisUntilFinished: Long) {
@@ -107,6 +112,8 @@ class FlagsGame : AppCompatActivity() {
         flagTimer.start()
     }
 
+    // This method generates correct and incorrect (by chance) flag and country name pairs and
+    // displays them on the screen
     private fun displayRandomFlag() {
         val player1Zone: LinearLayout = findViewById(R.id.player1_zone)
         val player2Zone: LinearLayout = findViewById(R.id.player2_zone)
@@ -152,6 +159,7 @@ class FlagsGame : AppCompatActivity() {
 
     }
 
+    // Method used to check if the flag and country name match based on positions in arrays
     private fun getFlagResource(countryName: String): Int? {
         val index = countryNames.indexOf(countryName)
         return if (index != -1) flags[index] else null
@@ -221,6 +229,8 @@ class FlagsGame : AppCompatActivity() {
         }
     }
 
+    // If the back button is pressed during a game session, it will take you straight
+    // to the game over screen
     override fun onBackPressed() {
         GameManager.gameOver(this)
     }

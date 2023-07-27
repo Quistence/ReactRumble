@@ -34,7 +34,7 @@ class ColorsGame : AppCompatActivity() {
     private var isGamePaused: Boolean = false
 
     companion object {
-        //Can be configured from GameEngine
+        // Number of rounds taken from Game Manager
         private const val MAX_GAME_TIME = 600000L
         private var maxGameTaps = GameManager.maxRoundsPerMiniGame
         private val COLOR_CORRECT = Color.parseColor("#C947D86B")
@@ -52,7 +52,7 @@ class ColorsGame : AppCompatActivity() {
     }
 
     // This method is run to start the game, it displays the game instructions and then runs the
-    // startCountdown() which in turn runs the startColorsGeneration() method
+    // startColorsGeneration() method
     private fun startGame() {
 
         val countdownTextP1: TextView = findViewById(R.id.countdownTextP1)
@@ -177,6 +177,8 @@ class ColorsGame : AppCompatActivity() {
             R.id.player1_zone -> GameManager.playerOneScore++
             R.id.player2_zone -> GameManager.playerTwoScore++
         }
+
+        // Change color theme based on if dark mode is on
         if(gamePreferences.getDarkMode()==true)
             colorText.setTextColor(Color.WHITE)
         else
@@ -191,6 +193,7 @@ class ColorsGame : AppCompatActivity() {
             R.id.player2_zone -> GameManager.playerTwoScore--
         }
 
+        // Change color theme based on if dark mode is on
         if(gamePreferences.getDarkMode()==true)
             colorText.setTextColor(Color.WHITE)
         else
@@ -222,6 +225,7 @@ class ColorsGame : AppCompatActivity() {
         if (++tapCount >= maxGameTaps) {
             player1Zone.isClickable = false
             player2Zone.isClickable = false
+
             //Delay for players to check results of last round
             GlobalScope.launch(Dispatchers.Main) {
                 delay(GameManager.gameDelayTime)
@@ -231,6 +235,8 @@ class ColorsGame : AppCompatActivity() {
         }
     }
 
+    // If the back button is pressed during a game session, it will take you straight
+    // to the game over screen
     override fun onBackPressed() {
         GameManager.gameOver(this)
     }

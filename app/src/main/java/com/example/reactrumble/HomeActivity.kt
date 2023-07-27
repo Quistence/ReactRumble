@@ -52,7 +52,6 @@ class HomeActivity : AppCompatActivity() {
 		startBounceAnimation(iconImage)
 
 		startGame.setOnClickListener {
-			//startActivity(Intent(this@HomeActivity, MathGame::class.java))
 			GameManager.startGame(this, games)
 		}
 		customizeButton.setOnClickListener{
@@ -60,10 +59,11 @@ class HomeActivity : AppCompatActivity() {
 		}
 	}
 
+	// Method that initiates the bounce animation on the React Rumble logo
 	private fun startBounceAnimation(iconImage: ImageView) {
 		// Set up the animator to scale the ImageView
 		val animator = ValueAnimator.ofFloat(1f, 1.5f, 1f)
-		animator.duration = 2000 // Duration of the animation in milliseconds
+		animator.duration = 2000 // Can adjust duration of the animation
 		animator.addUpdateListener { animation ->
 			val scale = animation.animatedValue as Float
 			iconImage.scaleX = scale
@@ -73,7 +73,6 @@ class HomeActivity : AppCompatActivity() {
 		// Set the repeat count to INFINITE for continuous animation
 		animator.repeatCount = ValueAnimator.INFINITE
 
-		// Start the animator
 		animator.start()
 	}
 }
