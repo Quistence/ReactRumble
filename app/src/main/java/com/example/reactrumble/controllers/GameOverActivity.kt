@@ -10,11 +10,8 @@ import com.example.reactrumble.HomeActivity
 import com.example.reactrumble.R
 
 class GameOverActivity : AppCompatActivity() {
-    private val PREFS_FILENAME = "customizationsPreferences"
-    private lateinit var preferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        preferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
         setContentView(R.layout.activity_game_over)
 
         val p1Score = intent.getIntExtra("p1", 0)

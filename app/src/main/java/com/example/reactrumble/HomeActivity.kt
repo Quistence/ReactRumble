@@ -16,7 +16,6 @@ import com.example.reactrumble.minigames.FlagsGame
 import com.example.reactrumble.minigames.MathGame
 
 class HomeActivity : AppCompatActivity() {
-	private val PREFS_FILENAME = "customizationsPreferences"
 	private lateinit var gamePreferences: GamePreferences
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
