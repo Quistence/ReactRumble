@@ -57,6 +57,9 @@
 * For Divinding Layouts based on Guidelines: https://developer.android.com/reference/androidx/constraintlayout/widget/Guideline
 <br />
 * For Customizing Switch: https://www.youtube.com/watch?v=5xMPLe1gnOA
+<br />
+* For Adding Dark Mode Themes: https://www.youtube.com/watch?v=94gvVpGsap8&ab_channel=AndroidKnowledge
+
 
 ### 2) For generating some Layout XMLs quickly and spacing them out well:
 - OpenAI, “ChatGPT,” chat.openai.com, 2023. https://chat.openai.com/  
@@ -104,7 +107,6 @@ equationTimer = object : CountDownTimer(MAX_GAME_TIME, GameManager.gameDelayTime
 		animator.start()
 	}
     ```
-
 ## Acknowledgments
 
 * Google
