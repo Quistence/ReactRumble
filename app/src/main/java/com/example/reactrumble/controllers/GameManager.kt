@@ -18,67 +18,74 @@ import kotlin.random.Random
 
 class GameManager private constructor() {
 
-    companion object {
+	companion object {
 
-        var playerOneScore: Int = 0
-        var playerTwoScore: Int = 0
-        var maxRoundsPerMiniGame: Int = 3 //Get From Preferences, default is 3
-        var maxMiniGamesPerMatch: Int = 3 //Get From Preferences, default is 3
-        var gameDelayTime = 2000L //Get From Preferences, default is medium (2) seconds
-        var lastGameIndex: Int = -1
-        var miniGamesPlayedCount: Int = 0
-        private var gameList: Array<Class<out AppCompatActivity>> = arrayOf(MathGame::class.java, FlagsGame::class.java, ColorsGame::class.java)
+		//Global variables to keep track of both players scores across all minigames
+		var playerOneScore: Int = 0
+		var playerTwoScore: Int = 0
 
-        fun startGame(context: Context, list: Array<Class<out AppCompatActivity>> = gameList) {
-            maxRoundsPerMiniGame = GamePreferences.getInstance(context).getNoOFRounds() !!
-            maxMiniGamesPerMatch = GamePreferences.getInstance(context).getMaxMiniGamesPerMatch() !!
-            gameDelayTime = GamePreferences.getInstance(context).getGameSpeed() !!
-            gameList = list
-            playerOneScore = 0
-            playerTwoScore = 0
-            nextGame(context)
-        }
+		//Initialize default values for game customizations
+		var maxRoundsPerMiniGame: Int = 3
+		var maxMiniGamesPerMatch: Int = 3
+		var gameDelayTime = 2000L
 
-        /**
-         * If game is not over, we swtich to a random game.
-         */
-        fun nextGame(context: Context) {
-            //Delay for players to check results of last round
-            GlobalScope.launch(Dispatchers.Main) {
-                delay(gameDelayTime)
-            }
+		//Variables to keep track of frequency of minigames played in a match
+		var lastGameIndex: Int = -1
+		var miniGamesPlayedCount: Int = 0
+		private var gameList: Array<Class<out AppCompatActivity>> =
+			arrayOf(MathGame::class.java, FlagsGame::class.java, ColorsGame::class.java)
 
-            if (miniGamesPlayedCount >= maxMiniGamesPerMatch) {
-                gameOver(context)
-            } else {
-                var index : Int
-                do {
-                    index = Random.nextInt(gameList.size)
-                } while(index == lastGameIndex && gameList.size > 1) //Ensures we don't get same game twice
-                val intent = Intent(context, gameList[index])
-                intent.addFlags(FLAG_ACTIVITY_CLEAR_TASK)
-                lastGameIndex = index
-                miniGamesPlayedCount++
-                context.startActivity(intent)
-                (context as Activity?)?.finish()
-            }
+		fun startGame(context: Context, list: Array<Class<out AppCompatActivity>> = gameList) {
+			//Get game customization options from shared preferences
+			maxRoundsPerMiniGame = GamePreferences.getInstance(context).getNoOFRounds()!!
+			maxMiniGamesPerMatch = GamePreferences.getInstance(context).getMaxMiniGamesPerMatch()!!
+			gameDelayTime = GamePreferences.getInstance(context).getGameSpeed()!!
 
-        }
+			gameList = list
+			playerOneScore = 0
+			playerTwoScore = 0
+			nextGame(context)
+		}
 
-        /**
-         * If gameOver is called, we move to the gameOver screen.
-         */
-        fun gameOver(context: Context) {
-            val win = playerOneScore - playerTwoScore
-            miniGamesPlayedCount = 0
-            val intent = Intent(context, GameOverActivity::class.java)
-            intent.putExtra("p1", playerOneScore)
-            intent.putExtra("p2", playerTwoScore)
-            intent.putExtra("winner", win)
-            context.startActivity(intent)
-        }
+		/**
+		 * If game is not over, we swtich to a random game.
+		 */
+		fun nextGame(context: Context) {
+			//Delay for players to check results of last round
+			GlobalScope.launch(Dispatchers.Main) {
+				delay(gameDelayTime)
+			}
 
-    }
+			if (miniGamesPlayedCount >= maxMiniGamesPerMatch) {
+				gameOver(context)
+			} else {
+				var index: Int
+				do {
+					index = Random.nextInt(gameList.size)
+				} while (index == lastGameIndex && gameList.size > 1) //Ensures we don't get same game twice
+				val intent = Intent(context, gameList[index])
+				intent.addFlags(FLAG_ACTIVITY_CLEAR_TASK)
+				lastGameIndex = index
+				miniGamesPlayedCount++
+				context.startActivity(intent)
+				(context as Activity?)?.finish()
+			}
 
+		}
 
+		/**
+		 * If gameOver is called, we move to the gameOver screen.
+		 */
+		fun gameOver(context: Context) {
+			//Calculate final score
+			val win = playerOneScore - playerTwoScore
+			miniGamesPlayedCount = 0
+			val intent = Intent(context, GameOverActivity::class.java)
+			intent.putExtra("p1", playerOneScore)
+			intent.putExtra("p2", playerTwoScore)
+			intent.putExtra("winner", win)
+			context.startActivity(intent)
+		}
+
+	}
 }

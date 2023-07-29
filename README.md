@@ -45,17 +45,19 @@
 - “Stack Overflow - Where Developers Learn, Share, & Build Careers,” Stack Overflow, 2019. http://stackoverflow.com
 - “Kotlin docs | Kotlin,” Kotlin Help. https://kotlinlang.org/docs/home.html
 - “Android Developers,” Android Developers, 2018. https://developer.android.com/
+- “YouTube,” YouTube, 2023. https://www.youtube.com/
 <br /> <br />
+
 * Changing the app name and logo: https://stackoverflow.com/questions/13272694/android-change-the-app-name-and-logo
-<br />
+
 * Handling Back button Press: https://stackoverflow.com/questions/6204972/override-dialog-onbackpressed
-<br />
+
 * Adding Null Safety: https://kotlinlang.org/docs/null-safety.html
-<br />
+
 * For Divinding Layouts based on Guidelines: https://developer.android.com/reference/androidx/constraintlayout/widget/Guideline
-<br />
+
 * For Customizing Switch: https://www.youtube.com/watch?v=5xMPLe1gnOA
-<br />
+
 * For Adding Dark Mode Themes: https://www.youtube.com/watch?v=94gvVpGsap8&ab_channel=AndroidKnowledge
 
 

@@ -2,11 +2,10 @@ package com.example.reactrumble
 
 import android.animation.ValueAnimator
 import android.content.Intent
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.reactrumble.controllers.GameManager
 import com.example.reactrumble.custompreferences.CustomizeActivity
@@ -21,10 +20,9 @@ class HomeActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 
 		gamePreferences = GamePreferences.getInstance(applicationContext)
-		if(gamePreferences.getDarkMode()==true) {
+		if (gamePreferences.getDarkMode() == true) {
 			AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-		}
-		else{
+		} else {
 			AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 		}
 
@@ -32,7 +30,7 @@ class HomeActivity : AppCompatActivity() {
 
 		val customizeButton: Button = findViewById(R.id.customizeButton)
 
-		customizeButton.setOnClickListener{
+		customizeButton.setOnClickListener {
 			startActivity(Intent(this@HomeActivity, CustomizeActivity::class.java))
 		}
 	}
@@ -42,10 +40,11 @@ class HomeActivity : AppCompatActivity() {
 
 		val customizeButton: Button = findViewById(R.id.customizeButton)
 		val startGame: Button = findViewById(R.id.quickStartButton)
+		//List of minigames to pass to the game manager to initialize
 		val games = arrayOf(MathGame::class.java, FlagsGame::class.java, ColorsGame::class.java)
 
 		// Find the React Rumble icon
-		val iconImage: ImageView = findViewById(R.id.provinceImage)
+		val iconImage: ImageView = findViewById(R.id.reactRumbleIcon)
 
 		// Start the animation
 		startBounceAnimation(iconImage)
@@ -53,7 +52,7 @@ class HomeActivity : AppCompatActivity() {
 		startGame.setOnClickListener {
 			GameManager.startGame(this, games)
 		}
-		customizeButton.setOnClickListener{
+		customizeButton.setOnClickListener {
 			startActivity(Intent(this@HomeActivity, CustomizeActivity::class.java))
 		}
 	}
