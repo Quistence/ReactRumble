@@ -43,9 +43,7 @@
 
 ### 1) General help with Kotlin
 - “Stack Overflow - Where Developers Learn, Share, & Build Careers,” Stack Overflow, 2019. http://stackoverflow.com
-<br />
 - “Kotlin docs | Kotlin,” Kotlin Help. https://kotlinlang.org/docs/home.html
- <br />
 - “Android Developers,” Android Developers, 2018. https://developer.android.com/
 <br /> <br />
 * Changing the app name and logo: https://stackoverflow.com/questions/13272694/android-change-the-app-name-and-logo
