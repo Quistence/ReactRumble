@@ -1,4 +1,4 @@
-# CSCI 4176/5708 - Summer 2023 - Mobile Computing Group 3 Project
+# CSCI 4176/5708 - Summer 2023 - Mobile Computing Group 3 Project: React Rumble
 
 
 * *Date Created*: 27 July 2023
